@@ -15,6 +15,8 @@ module.exports = {
     },
     rotate: {
       "-25": "-25deg",
+      "-20": "-20deg",
+      25: "25deg",
     },
     extend: {
       fontFamily: {
@@ -22,11 +24,13 @@ module.exports = {
         montserrat: ["Montserrat", "sans-serif"],
       },
       colors: {
-        primary: "#7cb342",
-        "dark-green": "#33691e",
-        "baby-blue": "#569099",
-        "pale-blue": "#F5F6FF",
-        "white-400": "rgba(255, 255, 255, 0.80)",
+        primary: "#50C878",
+        secondary_1: "#FF6F61",
+        secondary_2: "#8FD3D4",
+        accent_1: "#FFD700",
+        accent_2: "#6A0DAD",
+        neutral_1: "#EAEAEA",
+        neutral_2: "#333333",
       },
       boxShadow: {
         "3xl": "0 10px 40px rgba(0, 0, 0, 0.1)",
