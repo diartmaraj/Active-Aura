@@ -6,10 +6,10 @@ import CurvedArrow from "../../../assets/images/CurvedArrow.png";
 
 const BestSellers = () => {
   return (
-    <section className="padding-x flex flex-col md:flex-row xl:flex-row justify-around items-center md:gap-24 xl:gap-32 gap-0 w-full max-container ">
-      <div className="flex flex-row justify-center items-center ">
+    <section className="flex flex-col  tablet:flex-row justify-around items-center w-full gap-10 max-tablet:gap-0">
+      <div className="flex flex-1 xl:flex-none relative justify-center items-center ">
         <div className="flex flex-col gap-6 justify-center items-start w-full">
-          <h1 className="text-4xl font-bold text-nowrap">
+          <h1 className="text-4xl max-sm:text-[28px] max-sm:leading-[34px] font-bold text-nowrap">
             <span>Check out our</span> <br />
             <span>best sellers</span>
           </h1>
@@ -23,11 +23,11 @@ const BestSellers = () => {
         <img
           src={CurvedArrow}
           alt="Curved Arrow"
-          className="absolute h-36 w-36 transform translate-x-52 -translate-y-20   z-0 "
+          className="absolute h-36 w-24 max-sm:h-20 max-sm:w-16 tablet:w-36 transform max-sm:translate-x-[120px] translate-x-[200px] tablet:translate-x-[175px] lg:translate-x-[150px] xl:translate-x-[225px] 2xl:translate-x-[225px] max-sm:-translate-y-16 -translate-y-20 object-cover "
         />
       </div>
-      <div className="">
-        <img src={MindMaster} alt="MindMaster" className="w-full h-auto" />
+      <div className="flex flex-1 xl:flex-none">
+        <img src={MindMaster} alt="MindMaster" className="w-[350px] max-sm:w-[250px] h-auto " />
       </div>
     </section>
   );

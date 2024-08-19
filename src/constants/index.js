@@ -2,6 +2,7 @@ import FiguActiveSmoothCocoa from "../assets/images/FiguActiveSmoothCocoa.png";
 import VitaActive from "../assets/images/VitaActive.png";
 import FaceMask from "../assets/images/FaceMask.png";
 import ProteinPower from "../assets/images/ProteinPower.png";
+import LevroneGoldIso from "../assets/images/LevroneGoldIso.png"
 import {
   faShieldHalved,
   faBrain,
@@ -10,13 +11,16 @@ import {
   faComment,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-
+import Facebook from '../assets/icons/facebook.png';
+import Google from '../assets/icons/google.png';
+import Linkedin from "../assets/icons/linkedin.png";
+ 
 export const navLinks = [
-  { href: "#shop", label: "Shop" },
-  { href: "#shopByCategory", label: "Shop By Category" },
-  { href: "#specialOffers", label: "Special offers" },
-  { href: "#aboutUs", label: "About Us" },
-  { href: "#faqs", label: "FAQs" },
+  { href: "/shop", label: "Shop" },
+  { href: "/shopByCategory", label: "Shop By Category" },
+  { href: "/specialOffers", label: "Special offers" },
+  { href: "/aboutUs", label: "About Us" },
+  { href: "/faqs", label: "FAQs" },
 ];
 export const stats = [
   { value: "1000+", label: "Our Products" },
@@ -174,3 +178,25 @@ export const footerData = [
     ],
   },
 ];
+
+export const specialOffers = [
+  {name: "LR FIGUACTIVE Smooth Cocoa Shake",
+    img: FiguActiveSmoothCocoa,
+    discount: "50%",
+    btnTextColor: "text-[#866858]",
+    bgGradient: "bg-gradient-to-br from-[#866858] to-[#906055]"
+    
+  },
+  {
+    name: "Levrone Gold Iso Whey",
+    img: LevroneGoldIso,
+    discount: "30%",
+    btnTextColor: "text-[#60593d]",
+    bgGradient: "bg-gradient-to-br from-[#60593d] to-[#ffffec]"
+  }
+];
+
+
+
+
+

@@ -1,13 +1,13 @@
 import React from "react";
-import AddToCartButton from "./AddToCartButton";
+import AddToCartButton from "../AddToCartButton";
 
 const ProductCard2 = ({ img, productName, oldPrice, price }) => {
   return (
-    <div className="flex flex-col items-center text-center p-4 w-full h-full rounded-lg shadow-xl">
+    <div className="flex flex-col items-center text-center p-4 w-full h-full sm:rounded-lg sm:shadow-xl">
       <img
         src={img}
         alt={productName}
-        className=" h-48 object-cover mb-4 self-center  "
+        className=" h-48 object-contain mb-4 self-center  "
       />
       <div className="flex flex-col justify-between items-center flex-1  w-full">
         <div className="text-left w-full">

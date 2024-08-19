@@ -15,15 +15,14 @@ const Home = () => {
   return (
     <main className="relative">
       <Header />
-      <section className="xl:padding-l wide:padding-r padding-b">
+      <section className="xl:padding-l 2xl:pl-24  max-md:padding-b">
         <Hero />
       </section>
-      <section className="flex justify-center items-center">
+      <section className="flex justify-center items-center padding-b">
         <svg
-          width="1800"
-          height="200"
           viewBox="0 0 1700 200"
           xmlns="http://www.w3.org/2000/svg"
+          className="w-[5000px] h-[200px] xl:h-[260px]"
         >
           <defs>
             <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -39,19 +38,17 @@ const Home = () => {
           </defs>
           <g transform="rotate(-5 850 75)">
             <rect
-              width="2000"
-              height="75"
-              x="-100"
-              y="75"
+              x="-200"
+              y="40"
               fill="url(#gradient)"
+              className="w-[3000px] h-[150px] tablet:h-[120px]"
             />
             <text
-              x="850"
-              y="125"
               fontFamily="Arial"
-              fontSize="30"
+              fontSize="40"
               fill="white"
               textAnchor="middle"
+              className="text-position"
             >
               <tspan>ActiveAura</tspan>
               <tspan dx="100">ActiveAura</tspan>
@@ -65,10 +62,10 @@ const Home = () => {
           </g>
         </svg>
       </section>
-      <section className="padding-b wide:padding-r">
+      <section className="padding-b ">
         <RecentProducts />
       </section>
-      <section className="max-md:padding-t  padding-l">
+      <section className=" max-md:padding-t padding-l">
         <BestSellers />
       </section>
       <section className="padding-b">

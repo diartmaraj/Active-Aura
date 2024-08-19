@@ -36,7 +36,10 @@ module.exports = {
         "3xl": "0 10px 40px rgba(0, 0, 0, 0.1)",
       },
       screens: {
-        wide: "1440px",
+        tablet : "904px",
+        xs: "470px"
+        
+       
       },
     },
   },

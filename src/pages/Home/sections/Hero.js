@@ -10,50 +10,49 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="w-full flex xl:flex-row padding-x flex-col justify-center min-h-screen gap-10 max-container"
+      className=" w-full flex padding-x flex-col tablet:flex-row justify-center  min-h-screen gap-10 tablet:padding-b  "
     >
-      <div className="relative xl:w-1/2 flex flex-col  justify-center items-start w-full max-xl:padding-x pt-28">
+      <div className="relative flex flex-1 flex-col justify-center sm:items-center sm:text-center tablet:items-start tablet:text-start w-full pt-32 ">
         <h1
-          className="text-8xl font-bold font-palanquin xl:whitespace-nowrap max-sm:text-[72px] max-sm:leading-[82px]
+          className="max-sm:text-[56px] max-sm:leading-[62px] text-[76px] leading-[82px] xl:text-[92px] xl:leading-[98px]  font-bold font-palanquin 
         bg-gradient-to-b from-secondary_1  to-primary 
-        text-transparent bg-clip-text "
+        text-transparent bg-clip-text z-10"
         >
           ActiveAura
         </h1>
-        <h1 className="text-4xl mt-4 mb-4 font-bold text-wrap z-10 text-primary">
-          <span>Ignite Your Energy</span>, <br />
+        <h1 className="max-sm:text-[24px] max-sm:leading-[30px] text-[38px] xl:text-[54px] xl:leading-[60px] leading-[44px] mt-4 mb-4 font-bold z-10 text-primary flex flex-col" >
+          <span>Ignite Your Energy,</span>
           <span>Shine Bright</span>
         </h1>
-        <p className="text-base mb-4 text-primary max-w-sm md:max-w-md lg:max-w-lg">
+        <p className="max-sm:text-sm text-base  mb-6 text-primary max-w-sm md:max-w-md lg:max-w-lg">
           At ActiveAura, we offer premium fitness gear, wellness essentials, and
           beauty products to empower your journey to health, vitality, and
           radiance.
         </p>
-        <div className="flex justify-center mb-4 items-center gap-10 ">
+        <div className="flex  justify-start mb-6  gap-4 max-sm:gap-2 ">
           <Button2
             label="Explore our products"
             icon={faArrowRight}
             color="bg-secondary_1"
           />
-          <Button1 label="Log in / Sign up" />
+          <Button1 label="Log in / Sign up" path="/login"/>
         </div>
-        <div className="flex justify-start items-start flex-wrap w-full  gap-20">
+        <div className="flex tablet:justify-start tablet:items-start sm:justify-center sm:items-center flex-wrap w-full  gap-20 max-sm:gap-10">
           {stats.map((stat) => (
             <div key={stat.label}>
               <p className="leading-7 font-montserrat">{stat.label}</p>
-              <p className="text-2xl font-palanquin font-bold">{stat.value}</p>
+              <p className="text-2xl max-sm:text-xl font-palanquin font-bold">{stat.value}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="relative flex-1 flex justify-center items-center  xl:min-h-screen max-xl:py-40 sm:order-2">
+      <div className="relative flex flex-1 justify-center items-center overflow-hidden tablet:pt-24">
         <img
+          
           src={HeroImage}
           alt="Pro Balance"
-          width={300}
-          height={500}
-          className="object-contain relative z-10 transform  -rotate-25 xl:ml-36 xl:mt-20"
+          className="object-contain max-sm:h-[250px] h-[350px] md:h-[450px] transform -rotate-25"
         />
       </div>
     </section>

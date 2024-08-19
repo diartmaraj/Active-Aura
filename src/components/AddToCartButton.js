@@ -6,7 +6,7 @@ const AddToCartButton = ({ label }) => {
   return (
     <button
       className=" flex justify-center items-center py-2 mt-4 font-montserrat
-     text-md text-secondary_1 "
+     text-md text-secondary_1 mb-2"
     >
       {label}
       <FontAwesomeIcon

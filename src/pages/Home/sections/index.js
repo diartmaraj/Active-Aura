@@ -1,4 +1,4 @@
-import BestSellers from "./BestSellers";
+import BestSellers from './BestSellers';
 import RecentProducts from "./RecentProducts";
 import SpecialProducts from "./SpecialProducts";
 import Hero from "./Hero";
