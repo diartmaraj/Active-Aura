@@ -3,8 +3,8 @@ import Button1 from "../../../components/buttons/Button1";
 import Button2 from "../../../components/buttons/Button2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { stats } from "../../../constants";
-import HeroImage from "../../../assets/images/HeroImage.png";
+import { stats } from "../../../../constants";
+import HeroImage from "../../../../assets/images/HeroImage.png";
 
 const Hero = () => {
   return (

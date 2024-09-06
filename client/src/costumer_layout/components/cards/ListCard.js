@@ -5,7 +5,7 @@ const ListCard = ({ img, productName, category, price }) => {
   return (
     <div className="flex flex-col md:flex-row bg-white shadow-md rounded-lg w-full   p-4 mb-4">
     <img
-      src={img}
+      src={`http://localhost:5000${img}`}
       alt={productName}
       className="w-full md:w-40 h-40 object-contain rounded-md mb-4 md:mb-0 md:mr-4"
     />

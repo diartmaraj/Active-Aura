@@ -3,8 +3,8 @@ import { InputText } from "primereact/inputtext";
 import Button1 from "../../../components/buttons/Button1";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import MasterMindRed from "../../../assets/images/MasterMindRed.png";
-import MasterMindGold from "../../../assets/images/MasterMindGold.png";
+import MasterMindRed from "../../../../assets/images/MasterMindRed.png";
+import MasterMindGold from "../../../../assets/images/MasterMindGold.png";
 
 const Newsletter = () => {
   return (

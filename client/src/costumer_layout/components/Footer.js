@@ -1,5 +1,5 @@
 import React from "react";
-import { footerData } from "../constants";
+import { footerData } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInstagram,

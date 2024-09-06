@@ -1,8 +1,17 @@
+// config/db.js
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-mongoose.connect('mongodb://localhost:27017/ActiveAura', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB connected...'))
-.catch(err => console.log(err));
+dotenv.config();
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MDB_CONNECTION_STRING);
+    console.log('MongoDB connected');
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+  }
+};
+
+module.exports = connectDB;

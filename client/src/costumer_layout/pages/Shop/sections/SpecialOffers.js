@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import SpecialOffersCard from '../../../components/cards/SpecialOffersCard'
 
-import { specialOffers } from '../../../constants'
+import { specialOffers } from '../../../../constants'
 
 const SpecialOffers = () => {
   const [screenSizeTablet, setscreenSizeTablet] = useState(window.innerWidth >= 904);

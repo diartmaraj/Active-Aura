@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { InputText } from "primereact/inputtext";
 import {CiFilter} from 'react-icons/ci';
-import DiartiProfile from "../assets/images/DiartiProfile.jpg"
+import DiartiProfile from "../../assets/images/DiartiProfile.jpg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faSearch } from "@fortawesome/free-solid-svg-icons";
 import Button1 from './buttons/Button1';
-import ProfileDropdown from './ProfileDropdown';
+import ProfileDropdown from './profile/ProfileDropdown';
 import { BiCategory } from "react-icons/bi";
 import FilterCategory from './FilterCategory';
 

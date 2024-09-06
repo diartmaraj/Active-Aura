@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { IoClose, IoChevronDown, IoChevronUp } from 'react-icons/io5';
-import { filters } from '../constants';
+import { filters } from '../../constants';
 import { FaTimes } from 'react-icons/fa';
 import { IoFilter } from "react-icons/io5";
 import Button1 from './buttons/Button1';

@@ -24,12 +24,20 @@ import { startTransition, useState } from "react";
 import { Checkbox } from "primereact/checkbox";
 import { IoChevronUp, IoChevronDown, IoPricetagsOutline,IoTimeOutline  ,IoStarOutline, IoGiftOutline, IoColorPaletteOutline, IoResizeOutline, IoShirtOutline, IoStar, IoManOutline, IoStorefrontOutline } from 'react-icons/io5';
 import { MdOutlineCategory } from "react-icons/md";
+import { FaChartPie,FaHome, FaBox, FaShoppingCart, FaUsers, FaChartBar, FaCogs, FaQuestionCircle } from 'react-icons/fa';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3000';
 
 
 
-
+export const adminLinks = [
+  { href: "/dashboard", label: "Dashboard" , icon: <FaHome/> },
+  { href: "/admin/products", label: "Products", icon: <FaBox/> },
+  { href: "/orders", label: "Orders", icon:  <FaShoppingCart/>},
+  { href: "/customers", label: "Customers", icon: <FaUsers/> },
+  { href: "/reports", label: "Reports", icon:  <FaChartBar/>},
+  { href: "/statistics", label: "Statistics", icon: <FaChartPie/> },
+];
 export const navLinks = [
   { href: "/shop", label: "Shop" },
   { href: "/shopByCategory", label: "Shop By Category" },
@@ -43,106 +51,10 @@ export const stats = [
   { value: "4.6", label: "Ratings" },
 ];
 export const recentProducts = [
-  { img: `${BASE_URL}/uploads/images/VitaActive.png`, name: "Vita Active", category: "Nutrition", price: "27" },
-  {
-    img: `${BASE_URL}/uploads/images/FiguActiveSmoothCocoa.png`,
-    name: "LR FIGUACTIVE Smooth Cocoa Shake",
-    category: "Nutrition",
-    price: "42",
-  },
-  {
-    img: `${BASE_URL}/uploads/images/FaceMask.png`,
-    name: "Aloe Vera Express Moisture Face Mask",
-    category: "Skincare",
-    price: "20",
-  },
-  {
-    img: `${BASE_URL}/uploads/images/ProteinPower.png`,
-    name: "Protein Power Drink Powder Vanilla",
-    category: "Nutrition",
-    price: "50",
-  },
+ 
 ];
 
-export const products = [
-  {
-    name: "LR FIGUACTIVE Almond Snack Bars",
-    category: "Nutrition",
-    img: `${BASE_URL}/uploads/images/ProteinPower.png`, // Replace with actual image path
-    oldPrice: "35.29",
-    price: "28.29",
-    rating: 5,
-    brand:"LR World",
-    color:"",
-    size:"",
-    material:"",
-    gender:"",
-    availabile: "In Stock",
-    discount: ""
-  },
-  {
-    name: "LR FIGUACTIVE Lovely Coffee Shake",
-    category: "Nutrition",
-    img: `${BASE_URL}/uploads/images/VitaActive.png`, // Replace with actual image path
-    oldPrice: "42",
-    price: "33.59",
-    rating:4,
-    brand:"Muscle Tech",
-    color:"",
-    size:"",
-    material:"",
-    gender:"",
-    availabile:"In Stock",
-  discount: ""
-  },
-  {
-    name: "LR FIGUACTIVE Crusty Raspberry Flakes",
-    category: "Nutrition",
-    img: `${BASE_URL}/uploads/images/FiguActiveSmoothCocoa.png`, // Replace with actual image path
-    oldPrice: "42",
-    price: "33.59",
-    rating:2 ,
-    brand:"LR World",
-    color:"",
-    size:"",
-    material:"",
-    gender:"",
-    availabile:"",
-    discount: ""
-  },
-  {
-    name: "Aloe Vera Express Moisture Face Mask",
-    category: "Skincare",
-    img: `${BASE_URL}/uploads/images/FaceMask.png`,
-    oldPrice: "20",
-    price: "16",
-    rating:5,
-    brand:"",
-    color:"",
-    size:"",
-    material:"",
-    gender:"",
-    availabile:"",
-    discount: ""
-  },
-  {
-    name: "Heavy Duty Lifter Stringer",
-    category: "Apparel",
-    img: `${BASE_URL}/uploads/images/HeavyDutyGymshark.png`,
-    oldPrice: "36",
-    price: "28",
-    rating:5,
-    brand:"Gymshark",
-    color:"",
-    size:"",
-    material:"",
-    gender:"",
-    availabile:"",
-    discount: "20"
-  },
-  // Add more products as needed
-];
-
+export const products = [];
 export const benefits = [
   {
     title: "Premium Quality Products",
@@ -236,27 +148,7 @@ export const footerData = [
 ];
 
 export const specialOffers = [
-  {name: "LR FIGUACTIVE Smooth Cocoa Shake",
-    img: `${BASE_URL}/uploads/images/FiguActiveSmoothCocoa.png`,
-    discount: "50%",
-    btnTextColor: "text-[#866858]",
-    bgGradient: "bg-gradient-to-br from-[#866858] to-[#906055]"
-    
-  },
-  {
-    name: "Levrone Gold Iso Whey",
-    img: LevroneGoldIso,
-    discount: "30%",
-    btnTextColor: "text-[#60593d]",
-    bgGradient: "bg-gradient-to-br from-[#60593d] to-[#ffffec]"
-  },
-  {
-    name: "Heavy Duty Lifter Stringer",
-    img: `${BASE_URL}/uploads/images/HeavyDutyGymshark.png`,
-    discount: "20%",
-    btnTextColor: "text-[#343436]",
-    bgGradient: "bg-gradient-to-br from-[#f0f5f9] to-[#84b4f4]"
-  }
+ 
 ];
 
 export const brands = [
@@ -267,35 +159,7 @@ export const brands = [
   {name: "Gymshark" , logo: Gymshark }
 ];
 
-export const mostPopularProducts =[
-  { img: LevroneGoldIso, name: "Levrone Gold Iso Whey", category: "Nutrition", price: "27" },
-  {
-    img: KleanAthleteMultivitamin,
-    name: "Klean Athlete Multivitamin",
-    category: "Nutrition",
-    price: "42",
-  },
-  {
-    img: `${BASE_URL}/uploads/images/FaceMask.png`,
-    name: "Aloe Vera Express Moisture Face Mask",
-    category: "Skincare",
-    price: "20",
-  },
-  {
-    img:`${BASE_URL}/uploads/images/ProteinPower.png`,
-    name: "Protein Power Drink Powder Vanilla",
-    category: "Nutrition",
-    price: "50",
-  },
-  {
-    img: `${BASE_URL}/uploads/images/HeavyDutyGymshark.png`,
-    name: "Heavy Duty Lifter Stringer",
-    category: "Apparel",
-    price: "28",
-  },
 
-
-];
 
 export const productType = [
   {name: "All"},

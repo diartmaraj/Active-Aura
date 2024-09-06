@@ -18,8 +18,9 @@ import {
   resetFilters,
   applyCategory,
   removeCategory,
-} from '../../../store/features/filter/filterSlice';
-import { selectFilteredProducts } from '../../../store/features/selector';
+} from '../../../../store/features/filter/filterSlice';
+import { selectFilteredProducts } from '../../../../store/features/selector';
+import { fetchProducts, resetState } from '../../../../store/features/products/productsSlice';
 
 
 
@@ -29,9 +30,18 @@ const MainShop = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-
+  const productStatus = useSelector((state) => state.products.status);
   const filteredProducts = useSelector(selectFilteredProducts);
   const categoryState = useSelector((state) => state.filters.categories);
+
+  const handleReset = () => {
+    dispatch(resetState());
+  };
+  useEffect(() => {
+    if (productStatus === 'idle') {
+      dispatch(fetchProducts()).catch(error => console.error('Error fetching products:', error));
+    }
+  }, [dispatch, productStatus]);
 
 
   const handleFilters = {

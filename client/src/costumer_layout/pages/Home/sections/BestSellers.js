@@ -1,8 +1,8 @@
 import React from "react";
 import Button2 from "../../../components/buttons/Button2";
-import MindMaster from "../../../assets/images/MindMaster.png";
+import MindMaster from "../../../../assets/images/MindMaster.png";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import CurvedArrow from "../../../assets/images/CurvedArrow.png";
+import CurvedArrow from "../../../../assets/images/CurvedArrow.png";
 
 const BestSellers = () => {
   return (

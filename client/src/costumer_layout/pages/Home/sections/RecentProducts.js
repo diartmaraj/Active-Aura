@@ -1,13 +1,17 @@
 import React from "react";
 import ProductCard1 from "../../../components/cards/ProductCard1";
-import { recentProducts, productType } from "../../../constants";
+import { recentProducts, productType } from "../../../../constants";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import { Carousel } from 'react-responsive-carousel';
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProducts } from "../../../../store/features/products/productsSlice";
 
 
 const RecentProducts = ({selectedType}) => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 640);
+  const products = useSelector((state) => state.products.items);
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -23,9 +27,10 @@ const RecentProducts = ({selectedType}) => {
   const subcategories = selectedCategory?.subcategories?.map(sub => sub.name) || [];
 
   // Filter products by category or subcategory
-  const filteredProducts = recentProducts.filter(
-    product => product.category === selectedType || subcategories.includes(product.category) || selectedType === "All"
+  const filteredProducts = products.filter(
+    product => selectedType === "All" || product.category === selectedType || subcategories.includes(product.category)
   );
+
 
 
   return (

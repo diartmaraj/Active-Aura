@@ -4,7 +4,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from 'react-redux';
-import store from "./costumer_layout/store/store";
+import store from "./store/store";
+import { setAuthToken } from './utils/setAuthToken';
+
+const token = localStorage.getItem('token');
+if (token) {
+  setAuthToken(token);
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -1,7 +1,7 @@
 import React,{useState} from "react";
-import Logo from "../assets/images/logo.png";
+import Logo from "../../assets/images/logo.png";
 import { Link,useLocation } from "react-router-dom";
-import { navLinks } from "../constants";
+import { navLinks } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faSearch } from "@fortawesome/free-solid-svg-icons";
 import { IoCartOutline } from "react-icons/io5";

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import {  products, productType } from "../../../constants";
+import {  products, productType } from "../../../../constants";
 import ProductCard2 from "../../../components/cards/ProductCard2";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import { Carousel } from 'react-responsive-carousel';
+import { useSelector } from "react-redux";
 
 
 
-const SpecialProducts = ({selectedType}) => {const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 640);
+const SpecialProducts = ({selectedType}) => {
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 640);
+  const products = useSelector(state => state.products.items);
 
   useEffect(() => {
     const handleResize = () => {
@@ -67,7 +70,7 @@ const SpecialProducts = ({selectedType}) => {const [isSmallScreen, setIsSmallScr
             <div key={index} className="w-full h-full">
               <ProductCard2
                 index={index}
-                img={product.image}
+                img={product.img}
                 productName={product.name}
                 category={product.category}
                 oldPrice={product.oldPrice}

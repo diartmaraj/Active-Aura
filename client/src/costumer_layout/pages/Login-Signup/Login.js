@@ -3,7 +3,7 @@ import { InputText } from "primereact/inputtext";
 import React, { useState } from "react";
 import LoginForm from "./components/LoginForm";
 import SocialLogin from "./components/SocialLogin";
-import Background from "../../assets/images/BackgroundImg.avif";
+import Background from "../../../assets/images/BackgroundImg.avif";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import Button2 from "../../components/buttons/Button2";

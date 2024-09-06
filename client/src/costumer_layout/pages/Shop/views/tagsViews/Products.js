@@ -1,7 +1,7 @@
 import React from 'react'
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { IoFilter } from "react-icons/io5";
-import { mostPopularProducts } from '../../../../constants';
+import { mostPopularProducts } from '../../../../../constants';
 import ProductCard1 from "../../../../components/cards/ProductCard1";
 import { Carousel } from 'react-responsive-carousel';
 import { useState, useEffect } from 'react';
@@ -70,9 +70,9 @@ const Products = ({toggleFilters , filteredProducts}) => {
             case 'grid':
                 return (
                     <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
-                        {filteredProducts.map((product, index) => (
+                        {filteredProducts.map(product => (
                             <ProductCard1 
-                                key={index}
+                                key={product.id}
                                 img={product.img}
                                 productName={product.name}
                                 category={product.category}

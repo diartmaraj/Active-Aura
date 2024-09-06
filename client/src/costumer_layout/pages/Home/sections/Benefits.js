@@ -1,5 +1,5 @@
 import React from "react";
-import { benefits } from "../../../constants";
+import { benefits } from "../../../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button2 from "../../../components/buttons/Button2";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";

@@ -1,31 +1,32 @@
+// server.js
 const express = require('express');
-const multer = require('multer');
+const connectDB = require('./config/db');
+const cors = require('cors');
 const path = require('path');
+const productRoutes = require('./routes/ProductRoutes');
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes')
 
 const app = express();
 
-// Set up storage engine
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/images');
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    }
-});
+app.use(cors());
+app.use(express.json());
 
-// Initialize upload
-const upload = multer({ storage });
+connectDB();
 
-// Route to handle image upload
-app.post('/upload', upload.single('image'), (req, res) => {
-    const imageUrl = `/uploads/images/${req.file.filename}`;
-    // Save imageUrl to your MongoDB here
-    res.send({ imageUrl });
-});
+app.use('/api', productRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api', userRoutes)
 
-// Serve images statically
+app.use(express.static(path.join(__dirname, '../client/build')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

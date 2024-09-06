@@ -1,7 +1,7 @@
 import React from 'react';
 import SignupForm from './components/SignupForm';
 import SocialLogin from './components/SocialLogin';
-import Background from '../../assets/images/BackgroundImg.avif';
+import Background from '../../../assets/images/BackgroundImg.avif';
 import { Link } from 'react-router-dom';
 import { IoIosArrowBack } from 'react-icons/io';
 import Button2 from '../../components/buttons/Button2';

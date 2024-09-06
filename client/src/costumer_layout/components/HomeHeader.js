@@ -1,20 +1,39 @@
-import React, { useState } from "react";
-import Logo from "../assets/images/logo.png";
+import React, { useState, useEffect } from "react";
+import Logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
-import { navLinks } from "../constants";
+import { navLinks } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IoCartOutline } from "react-icons/io5";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Button1 from "./buttons/Button1";
 import { useNavigate } from "react-router-dom";
 import SideBar from "./SideBar";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, initializeAuthState  } from "../../store/features/auth/authSlice";
+import ProfileDropdown from "./profile/ProfileDropdown";
+
+
+const baseURL = "http://localhost:3001";
 
 function HomeHeader() {
   const [isSideBarOpen, setisSideBarOpen] = useState(false);
+  const [ProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  
+  const toggleDropdown = () => {
+    setProfileDropdownOpen(!ProfileDropdownOpen);
+  };
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const toggleSideBar = () => {
     setisSideBarOpen(!isSideBarOpen);
   };
+
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
 
   return (
     <header className="padding-x py-4 absolute z-10 w-full ">
@@ -41,7 +60,19 @@ function HomeHeader() {
         </ul>
         <div className="flex justify-between gap-8 items-center max-lg:hidden ">
         <IoCartOutline className="size-6"/>
-          <Button1 label="Log in / Sign up" path="/login" extraStyle="h-12"></Button1>
+        {isAuthenticated ? (
+            <div className="relative flex items-center gap-4">
+              <img
+                src={`${baseURL}${user.photo}`} // Assuming user.photo contains the URL of the user's photo
+                alt="Profile"
+                className="w-10 h-10 2xl:w-14 2xl:h-14 rounded-full object-cover cursor-pointer"
+                onClick={toggleDropdown}
+              />
+              <ProfileDropdown isOpen={ProfileDropdownOpen}  user={user} onLogout={handleLogout}/>
+            </div>
+          ) : (
+            <Button1 label="Log in / Sign up" path="/login" extraStyle="h-12" />
+          )}
         </div>
         <div>
           <FontAwesomeIcon

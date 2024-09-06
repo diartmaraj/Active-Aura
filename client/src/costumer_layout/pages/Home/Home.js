@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import Header from "../../components/HomeHeader";
 
 import {
@@ -11,10 +11,17 @@ import {
 } from "./sections";
 import Footer from "../../components/Footer";
 import CategorySelector from "./sections/CategorySelector";
-import { productType } from "../../constants";
+import { productType } from "../../../constants";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "../../../store/features/products/productsSlice";
 
 const Home = () => {
   const [selectedType, setSelectedType] = useState(productType[0].name);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
 
   return (

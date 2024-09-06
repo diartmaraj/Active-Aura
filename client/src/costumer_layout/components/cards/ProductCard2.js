@@ -1,11 +1,14 @@
 import React from "react";
 import AddToCartButton from "../buttons/AddToCartButton";
 
+
 const ProductCard2 = ({ img, productName, oldPrice, price }) => {
+  const baseURL = "http://localhost:3001"; // Change this to your server's base URL if needed
+  const imageUrl = `${baseURL}${img}`;
   return (
     <div className="flex flex-col items-center text-center p-4 w-full h-full sm:rounded-lg sm:shadow-xl">
       <img
-        src={img}
+        src={imageUrl}
         alt={productName}
         className=" h-48 object-contain mb-4 self-center  "
       />

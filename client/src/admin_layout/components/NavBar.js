@@ -43,7 +43,7 @@ const NavBar = () => {
         placeholder="What are you looking for today?"
       />
 
-      <Button1 label="Search" extraStyle="h-10 2xl:h-14 text-base absolute right-0 top-1/2 rounded-2xl  transform -translate-y-1/2"/>
+      <Button1 label="Search" extraStyle="h-10 2xl:h-14 text-base absolute right-0 top-1/2 rounded-xl  transform -translate-y-1/2"/>
       
     </div>
 

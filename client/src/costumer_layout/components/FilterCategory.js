@@ -1,8 +1,8 @@
 import React,{useState} from "react";
-import { navLinks } from "../constants";
+import { navLinks } from "../../constants";
 import { Link } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
-import { productType } from "../constants";
+import { productType } from "../../constants";
 import { IoClose, IoChevronDown, IoChevronUp } from 'react-icons/io5';
 
 

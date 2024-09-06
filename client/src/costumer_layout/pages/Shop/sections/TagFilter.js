@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { getSubcategoryTags } from '../../../constants';
+import { getSubcategoryTags } from '../../../../constants';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleCategory, removeCategory, resetFilters, applyCategory} from '../../../store/features/filter/filterSlice';
+import { toggleCategory, removeCategory, resetFilters, applyCategory} from '../../../../store/features/filter/filterSlice';
 
 
 const TagFilter = ({ limit, selectedTag}) => {

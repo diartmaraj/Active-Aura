@@ -1,5 +1,5 @@
 import React from 'react'
-import { productType, recentProducts } from '../../../constants'
+import { productType, recentProducts } from '../../../../constants'
 import { useState } from 'react';
 
 const CategorySelector = ({selectedType, setSelectedType}) => {
