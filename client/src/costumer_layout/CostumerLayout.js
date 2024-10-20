@@ -6,14 +6,16 @@ import Login from './pages/Login-Signup/Login';
 import Signup from './pages/Login-Signup/Signup';
 import ShopRouter from './pages/Shop/ShopRouter';
 import AccountSettings from './components/profile/AccountSettings';
+import EmailVerificationPage from './pages/Login-Signup/EmailVerificationPage';
 
 function CostumerLayout() {
   return  (
-    <div>
+    <div className=''>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/verify-email" element={<EmailVerificationPage />} />
       <Route path="/*" element={<ShopRouter/>}/>
       <Route path="/settings/*" element={<AccountSettings/>}/>
     </Routes>

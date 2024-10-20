@@ -9,7 +9,7 @@ import Button2 from '../../components/buttons/Button2';
 
 const Signup = () => {
   return (
-    <section className='flex flex-col lg:flex-row justify-center items-center  h-screen'>
+    <section className='flex flex-col lg:flex-row justify-center items-center  h-screen w-full '>
       <div className='hidden lg:flex lg:flex-col lg:w-1/2 lg:justify-center lg:items-center lg:z-10 lg:h-full'>
         <h1 className='text-4xl text-white mb-4 px-6 text-wrap text-center '>Already have an account?</h1>
           <p className='text-base text-center px-10 text-white mb-10 '>Welcome back! Log in to access your account and continue your journey to wellness.</p>

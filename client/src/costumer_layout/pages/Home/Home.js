@@ -1,6 +1,6 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/HomeHeader";
-
 import {
   Hero,
   RecentProducts,
@@ -11,23 +11,16 @@ import {
 } from "./sections";
 import Footer from "../../components/Footer";
 import CategorySelector from "./sections/CategorySelector";
-import { productType } from "../../../constants";
-import { useDispatch } from "react-redux";
-import { fetchProducts } from "../../../store/features/products/productsSlice";
-
-const Home = () => {
-  const [selectedType, setSelectedType] = useState(productType[0].name);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
 
 
+const Home = () => { 
+  const [selectedCategoryId, setSelectedCategoryId] = useState('all');
+ 
+ 
   return (
     <main className="relative">
       <Header />
-      <section className="xl:padding-l 2xl:pl-24  max-md:padding-b">
+      <section className="xl:padding-l 2xl:pl-24 max-md:padding-b">
         <Hero />
       </section>
       <section className="flex justify-center items-center padding-b">
@@ -53,7 +46,7 @@ const Home = () => {
               x="-200"
               y="40"
               fill="url(#gradient)"
-              className="w-[3000px] h-[150px] tablet:h-[120px] 2xl:h-[90        px] "
+              className="w-[3000px] h-[150px] tablet:h-[120px] 2xl:h-[90px] "
             />
             <text
               fontFamily="Arial"
@@ -76,19 +69,23 @@ const Home = () => {
         </svg>
       </section>
       <section className="padding-b ">
-        <CategorySelector selectedType={selectedType} setSelectedType={setSelectedType}/>
-        <RecentProducts selectedType={selectedType}/>
+        <CategorySelector
+         selectedCategoryId={selectedCategoryId}
+          setSelectedCategoryId={setSelectedCategoryId}
+
+        />
+        <RecentProducts  selectedCategoryId={selectedCategoryId}/>
       </section>
-      <section className=" max-md:padding-t padding-l">
+      <section className="max-md:padding-t padding-l">
         <BestSellers />
       </section>
       <section className="padding-b">
-        <SpecialProducts selectedType={selectedType}/>
+        <SpecialProducts />
       </section>
       <section className="padding-y">
         <Benefits />
       </section>
-      <section className="padding-y  padding-b">
+      <section className="padding-y padding-b">
         <Newsletter />
       </section>
       <Footer />

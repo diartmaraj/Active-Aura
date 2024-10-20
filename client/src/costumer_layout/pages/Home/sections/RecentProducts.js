@@ -1,54 +1,32 @@
-import React from "react";
-import ProductCard1 from "../../../components/cards/ProductCard1";
-import { recentProducts, productType } from "../../../../constants";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; 
-import { Carousel } from 'react-responsive-carousel';
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProducts } from "../../../../store/features/products/productsSlice";
+import ProductCard1 from "../../../components/cards/ProductCard1";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+import { fetchProductsByCategory } from "../../../../store/features/products/productsSlice";
 
-
-const RecentProducts = ({selectedType}) => {
+const RecentProducts = ({ selectedCategoryId }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 640);
   const products = useSelector((state) => state.products.items);
+  const productStatus = useSelector((state) => state.products.status);
+  const productError = useSelector((state) => state.products.error);
 
+  if (productStatus === 'loading') {
+    return <div>Loading products...</div>;
+  }
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 640);
-    };
+  if (productStatus === 'failed') {
+    return <div>Error: {productError}</div>;
+  }
 
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-  const selectedCategory = productType.find(type => type.name === selectedType);
-  const subcategories = selectedCategory?.subcategories?.map(sub => sub.name) || [];
-
-  // Filter products by category or subcategory
-  const filteredProducts = products.filter(
-    product => selectedType === "All" || product.category === selectedType || subcategories.includes(product.category)
-  );
-
-
-
+  if (!products || products.length === 0) {
+    return <div>No products available for this category</div>;
+  }
   return (
-    <section className="w-full flex flex-col justify-center items-center gap-10  ">
+    <section className="w-full flex flex-col justify-center items-center gap-10">
       <div className="relative flex flex-col justify-center gap-3 items-center w-full">
-        <svg
-          width="30"
-          height="30"
-          xmlns="http://www.w3.org/2000/svg"
-          className="flex justify-center items-center"
-        >
-          <circle
-            cx="15"
-            cy="15"
-            r="7"
-            fill="#8FD3D4"
-            className="flex justify-center items-center"
-          />
+        <svg width="30" height="30" xmlns="http://www.w3.org/2000/svg" className="flex justify-center items-center">
+          <circle cx="15" cy="15" r="7" fill="#8FD3D4" className="flex justify-center items-center" />
         </svg>
         <div className="flex flex-col justify-center items-center gap-1 max-sm:gap-2 padding-x">
           <h1 className="font-montserrat text-3xl text-center max-sm:text-xl font-bold text-primary">
@@ -59,37 +37,31 @@ const RecentProducts = ({selectedType}) => {
           </p>
         </div>
       </div>
-      <div className="padding-x w-full  block justify-center items-center ">
+      <div className="padding-x w-full block justify-center items-center">
         {isSmallScreen ? (
-        <Carousel  showThumbs={false} 
-        showStatus={false} 
-        infiniteLoop 
-        autoPlay 
-        interval={5000} >
-          {filteredProducts.map((product, index) => (
-            
-              <div className="w-full h-full ">
+          <Carousel showThumbs={false} showStatus={false} infiniteLoop autoPlay interval={5000}>
+            {products.map((product, index) => (
+              <div className="w-full h-full" key={index}>
                 <ProductCard1
-                  index={index}
-                  img={product.img}
-                  productName={product.name}
-                  category={product.category}
-                  price={product.price}
+                   key={product._id}
+                   img={product.images || []} 
+                   productName={product.name || 'Unknown Product'}
+                   category={product.category.name || 'Unknown Category'}
+                   price={product.price || 'N/A'}
                 />
               </div>
-           
-          ))}
-        </Carousel>
+            ))}
+          </Carousel>
         ) : (
           <div className="grid grid-cols-2 max-sm:grid-cols-1 tablet:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 justify-center items-center">
-            {filteredProducts.map((product, index) => (
-              <div key={index} className="w-full h-full">
+            {products.map((product, index) => (
+              <div key={product._id} className="w-full h-full">
                 <ProductCard1
-                  index={index}
-                  img={product.img}
-                  productName={product.name}
-                  category={product.category}
-                  price={product.price}
+                    key={product._id}
+                    img={product.images || []} 
+                    productName={product.name || 'Unknown Product'}
+                    category={product.category.name || 'Unknown Category'}
+                    price={product.price || 'N/A'}
                 />
               </div>
             ))}

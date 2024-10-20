@@ -25,18 +25,20 @@ import { Checkbox } from "primereact/checkbox";
 import { IoChevronUp, IoChevronDown, IoPricetagsOutline,IoTimeOutline  ,IoStarOutline, IoGiftOutline, IoColorPaletteOutline, IoResizeOutline, IoShirtOutline, IoStar, IoManOutline, IoStorefrontOutline } from 'react-icons/io5';
 import { MdOutlineCategory } from "react-icons/md";
 import { FaChartPie,FaHome, FaBox, FaShoppingCart, FaUsers, FaChartBar, FaCogs, FaQuestionCircle } from 'react-icons/fa';
+import { BiCategory } from "react-icons/bi";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3000';
 
 
 
 export const adminLinks = [
-  { href: "/dashboard", label: "Dashboard" , icon: <FaHome/> },
+  { href: "/admin/dashboard", label: "Dashboard" , icon: <FaHome/> },
   { href: "/admin/products", label: "Products", icon: <FaBox/> },
-  { href: "/orders", label: "Orders", icon:  <FaShoppingCart/>},
-  { href: "/customers", label: "Customers", icon: <FaUsers/> },
-  { href: "/reports", label: "Reports", icon:  <FaChartBar/>},
-  { href: "/statistics", label: "Statistics", icon: <FaChartPie/> },
+  { href: "/admin/orders", label: "Orders", icon:  <FaShoppingCart/>},
+  { href: "/admin/customers", label: "Customers", icon: <FaUsers/> },
+  { href: "/admin/reports", label: "Reports", icon:  <FaChartBar/>},
+  { href: "/admin/statistics", label: "Statistics", icon: <FaChartPie/> },
+  { href: "/admin/categories", label: "Categories ", icon: <BiCategory/> }
 ];
 export const navLinks = [
   { href: "/shop", label: "Shop" },
@@ -344,214 +346,6 @@ export const availability = [
 
 
 
-export const filters = ( openSections, toggleSection, handleFilters) => {
-
-  const {
-    handleCategoryChange,
-   handleBrandChange ,
-   handleRatingChange,
-   handleDiscountChange
- 
-  } = handleFilters;
-
-
-  return(
-[
-  { name: "Category", icon: <MdOutlineCategory />,
-    content: (<div className="flex flex-col justify-content-center">
-      {productType.map((category, index) => (
-        <div key={index} className="flex flex-col w-full">
-          <div
-            className="flex justify-between items-center w-full  cursor-pointer border-b-2 py-2 "
-            onClick={() => toggleSection(category.name)}
-          >
-            <div className="flex justify-center items-center">
-              <label className="flex items-center text-sm font-medium text-gray-700 ">
-                <input
-                  type="checkbox"
-                  className="form-checkbox h-4 w-4 text-primary rounded border-gray-300 mr-2"
-                  onChange={(e) => handleCategoryChange(category.name, e.target.checked)}
-                />
-                <span className="ml-2 text-sm text-gray-700">{category.name}</span>
-              </label>
-            </div>
-            {openSections[category.name] ? (
-              <IoChevronUp size={16} className='text-black' />
-            ) : (
-              <IoChevronDown size={16}  className='text-black'/>
-            )}
-          </div>
-          {openSections[category.name] && category.subcategories && (
-            <div className="flex flex-col mt-2 pl-4 w-full">
-              {category.subcategories.map((subcategory, subIndex) => (
-                <label key={subIndex} className="inline-flex items-center mt-1">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-4 w-4 text-primary rounded border-gray-300"
-                    onChange={(e) => handleCategoryChange(subcategory.name,  e.target.checked)}
-                  />
-                  <span className="ml-2 text-sm text-gray-700">{subcategory.name}</span>
-                </label>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-    )
-  
-  },
-  {
-    name: "Price Range",
-    icon: <IoPricetagsOutline size={20} />,
-    content: (
-      <div className="card flex justify-center ">
-        <Slider 
-         
-          range 
-        />
-      </div>
-    )
-  },
-  {
-    name: "Brands",
-    icon: <IoStorefrontOutline size={20} />,
-    content: (
-      <div className=" flex flex-col justify-content-center">  
-        {brands.map((brand, index) => (
-          <div key={index} className="flex flex-row items-center">
-            <label key={index} className="inline-flex items-center mt-1">
-            <input type="checkbox" className="form-checkbox h-4 w-4 text-primary rounded border-gray-300" 
-            onChange={(e) => handleBrandChange(brand.name,  e.target.checked)}
-       />
-              <span className="ml-2 text-sm text-gray-700">{brand.name}</span>
-            </label>
-          </div>
-        ))}
-      </div>
-    )
-  },
-  { name: "Ratings", icon: <IoStarOutline size={20} /> ,
-  content: (
-  <div className=" flex flex-col justify-content-center">  
-    {ratings.map((rating, index) => (
-      <div key={index} className="flex flex-row items-center">
-        <label key={index} className="inline-flex items-center mt-1">
-        <input type="checkbox" className="form-checkbox h-4 w-4 text-primary rounded border-gray-300"
-        onChange={(e) => handleRatingChange(rating.value, e.target.checked)}
-     />
-          <span className="ml-2 flex flex-row text-sm text-gray-700">{rating.stars}</span>
-        </label>
-      </div>
-    ))}
-  </div>
-
-  )},
-  { name: "Discount Offers", icon: <IoGiftOutline size={20} />,
-    content: (
-      <div className=" flex flex-col justify-content-center">  
-    {discounts.map((discount, index) => (
-      <div key={index} className="flex flex-row items-center">
-        <label key={index} className="inline-flex items-center mt-1">
-        <input type="checkbox" className="form-checkbox h-4 w-4 text-primary rounded border-gray-300" 
-        onChange={(e) => handleDiscountChange(discount.label, e.target.checked)}
-        />
-          <span className="ml-2 flex flex-row text-sm text-gray-700">{discount.label}</span>
-        </label>
-      </div>
-    ))}
-  </div>
-    )
-   },
-  { name: "Color", icon: <IoColorPaletteOutline size={20} />,
-    content: (
-      <div className=" flex flex-col justify-content-center">  
-    {colors.map((color, index) => (
-      <div key={index} className="flex flex-row items-center">
-        <label key={index} className="inline-flex items-center mt-1">
-        <input type="checkbox" className="form-checkbox h-4 w-4 text-primary rounded border-gray-300" 
-     
-     />
-        <svg width="20" height="20" className="ml-2 rounded-md">
-            <rect width="20" height="20" fill={color.hex} />
-          </svg>
-          <span className="ml-2 flex flex-row text-sm text-gray-700 mr-2">{color.name}</span>
-        </label>
-      </div>
-    ))}
-  </div>
-    )
-  },
-  { name: "Size", icon: <IoResizeOutline size={20} /> ,
-    content: (
-      <div className=" flex flex-col justify-content-center">  
-    {sizes.map((size, index) => (
-      <div key={index} className="flex flex-row items-center">
-        <label key={index} className="inline-flex items-center mt-1">
-        <input type="checkbox" className="form-checkbox h-4 w-4 text-primary rounded border-gray-300"
-    
-       />
-          <span className="ml-2 flex flex-row text-sm text-gray-700 mr-2">{size.name}</span>
-        </label>
-      </div>
-    ))}
-  </div>
-    )
-  },
-  { name: "Material", icon: <IoShirtOutline size={20} /> ,
-    content: (
-      <div className=" flex flex-col justify-content-center">  
-      {materials.map((material, index) => (
-        <div key={index} className="flex flex-row items-center">
-          <label key={index} className="inline-flex items-center mt-1">
-          <input type="checkbox" className="form-checkbox h-4 w-4 text-primary rounded border-gray-300" 
-       
-        />
-            <span className="ml-2 flex flex-row text-sm text-gray-700 mr-2">{material.name}</span>
-          </label>
-        </div>
-      ))}
-    </div>
-    )
-},
-  { name: "Gender", icon: <IoManOutline size={20} /> ,
-    content: (
-      <div className=" flex flex-col justify-content-center">  
-        <div  className="flex flex-row items-center">
-          <label className="inline-flex items-center mt-1">
-          <input type="checkbox" className="form-checkbox h-4 w-4 text-primary rounded border-gray-300" 
-       />
-            <span className="ml-2 flex flex-row text-sm text-gray-700 mr-2">Male</span>
-          </label>
-        </div>
-        <div  className="flex flex-row items-center">
-          <label  className="inline-flex items-center mt-1">
-          <input type="checkbox" className="form-checkbox h-4 w-4 text-primary rounded border-gray-300"
-          />
-            <span className="ml-2 flex flex-row text-sm text-gray-700 mr-2">Female</span>
-          </label>
-        </div>
-    </div>
-    )
-},
-  { name: "Product Availability", icon: <IoTimeOutline size={20} />,
-    content: (
-      <div className=" flex flex-col justify-content-center">  
-      {availability.map((available, index) => (
-        <div key={index} className="flex flex-row items-center">
-          <label key={index} className="inline-flex items-center mt-1">
-          <input type="checkbox" className="form-checkbox h-4 w-4 text-primary rounded border-gray-300"
-           />
-            <span className="ml-2 flex flex-row text-sm text-gray-700 mr-2">{available.name}</span>
-          </label>
-        </div>
-      ))}
-    </div>
-    )
- }
-]
-  )
-}
 
 
 

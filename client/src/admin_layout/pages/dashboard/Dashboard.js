@@ -1,6 +1,5 @@
     import React,{useEffect} from 'react'
-    import NavBar from '../../components/NavBar'
-    import SideBar from '../../components/SideBar'
+
     import KeyMetrics from './sections/KeyMetrics'
     import OrdersByTime from './sections/OrdersByTime'
     import OrdersOverview from './sections/OrdersOverview'
@@ -23,19 +22,7 @@
       }, [dispatch, productStatus]);
     
     return (
-      <div className="min-h-screen bg-gray-100 flex flex-col lg:flex-row">
-      {/* Sidebar */}
-      <div className="w-full  sm:w-1/4 lg:w-1/6">
-        <SideBar />
-      </div>
-
-      <div className="flex-grow flex flex-col">
-        {/* Navbar */}
-        <div className="bg-white shadow-lg lg:rounded-tr-xl p-4">
-          <NavBar />
-        </div>
-
-        {/* Main Content */}
+   
         <div className="flex-grow grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 p-4">
           <div className="col-span-12 lg:col-span-8 grid gap-4">
             <div className="">
@@ -58,8 +45,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
     )
     }
 

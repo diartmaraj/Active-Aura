@@ -1,84 +1,96 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
-import { Link , useNavigate} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { signup } from '../../../../store/features/auth/authSlice';
 import Button1 from '../../../components/buttons/Button1';
-import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import PasswordStrengthMeter from './PasswordStrengthMeter';
 
 const SignupForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  });
+  const [form, setForm] = useState({ email: '', password: '', firstName: '' , lastName: '', confirmPassword: ''});
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isLoading, error } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value
+    const { name, value } = e.target;
+    setForm((prevForm) => ({ ...prevForm, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(signup(form)).then((action) => {
+      if (action.meta.requestStatus === 'fulfilled') {
+        navigate('/login'); // Redirect to login page after successful signup
+      }
     });
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log('Submitting form with data:', formData); // Add this line
-    try {
-      const response = await axios.post('http://localhost:3001/api/auth/signup', formData);
-      console.log('Response:', response.data);
-      navigate('/login');
-    } catch (err) {
-      console.error('Error response:', err.response);
-      console.error('Error message:', err.response.data.message);
-    }
-  };
-  
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center w-full p-6  border-gray-200 z-10">
-            <h1 className='text-2xl font-semibold mb-6 text-white lg:text-black'>Sign up</h1>
-          <div className='flex flex-col gap-2 justify-center items-center mb-6'>
-            <div className='flex justify-center items-center gap-2'>
-             <InputText
-               type="text"
-               id="firstName"
-               placeholder="First Name"
-               onChange={handleChange}
-               className="block pl-2.5 pr-5  py-3 w-full text-sm max-sm:text-[12px] text-white lg:text-black bg-none placeholder:text-gray-300 bg-transparent rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:border-secondary_2 peer z-[1111]"
-             />
-             <InputText
-             type="text"
-             id="lastName"
-             placeholder="Last Name"
-             onChange={handleChange}
-             className="block pl-2.5 pr-5 py-3 w-full text-sm max-sm:text-[12px] text-white lg:text-black bg-none placeholder:text-gray-300 bg-transparent rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:border-secondary_2 peer z-[1111]"
-           />
-           </div>
-            <InputText
-               type="email"
-               id="email"
-               placeholder="Email"
-               onChange={handleChange}
-               className="block pl-2.5 pr-20  py-3  w-full text-sm max-sm:text-[12px] text-white lg:text-black bg-none placeholder:text-gray-300 bg-transparent rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:border-secondary_2 peer z-[1111]"
-             />
-             <InputText
-               type="password"
-               id="password"
-               placeholder="Password"
-               onChange={handleChange}
-               className="block pl-2.5 pr-28  py-3 w-full text-sm max-sm:text-[12px] text-white lg:text-black bg-none placeholder:text-gray-300 bg-transparent rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:border-secondary_2 peer z-[1111]"
-             />
-            <InputText
+      <h1 className='text-2xl font-semibold mb-6 text-white lg:text-black'>Create an account</h1>
+      <div className='flex flex-col gap-2 justify-center items-center mb-6'>
+      <div className='flex justify-center items-center gap-2'>
+        <InputText
+          type="text"
+          id="firstName"
+          name="firstName"
+          placeholder="First Name"
+          value={form.firstName}
+          onChange={handleChange}
+          className="block pl-2.5 pr-5  py-3 w-full text-sm max-sm:text-[12px] text-white lg:text-black bg-none placeholder:text-gray-300 bg-transparent rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:border-secondary_2 peer z-[1111]"
+        />
+        <InputText
+          type="text"
+          id="lastName"
+          name="lastName"
+          placeholder="Last Name"
+          value={form.lastName}
+          onChange={handleChange}
+          className="block pl-2.5 pr-5  py-3 w-full text-sm max-sm:text-[12px] text-white lg:text-black bg-none placeholder:text-gray-300 bg-transparent rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:border-secondary_2 peer z-[1111]"
+        />
+        </div>
+        <InputText
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Your Email"
+          value={form.email}
+          onChange={handleChange}
+          className="block pl-2.5 pr-20 py-3 w-full text-sm max-sm:text-[12px] text-white lg:text-black bg-none placeholder:text-gray-300 bg-transparent rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:border-secondary_2 peer z-[1111]"
+        />
+        <InputText
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={handleChange}
+          className="block pl-2.5 pr-20 py-3 w-full text-sm max-sm:text-[12px] text-white lg:text-black bg-none placeholder:text-gray-300 bg-transparent rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:border-secondary_2 peer z-[1111]"
+        />
+         <InputText
                type="password"
                id="confirmPassword"
+               name='confirmPassword'
                placeholder="Confirm password"
+               value={form.confirmPassword}
                onChange={handleChange}
                className="block pl-2.5 pr-20 py-3 mb-2 w-full text-sm max-sm:text-[12px] text-white lg:text-black bg-none placeholder:text-gray-300 bg-transparent rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:border-secondary_2 peer z-[1111]"
              />
-             
-             <Button1 type="submit" label="Sign Up"  extraStyle="w-full h-12" />
-             </div>
+             <PasswordStrengthMeter password={form.password}/>
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+        <Button1 type="submit" label={isLoading ? 'Signing up...' : 'Sign Up'} extraStyle="w-full h-12" disabled={isLoading} />
+        <Link to="/login">
+          <p className="text-white lg:hidden mt-2 max-sm:text-sm">Already have an account?</p>
+        </Link>
+      </div>
     </form>
-  )
-}
+  );
+};
 
 export default SignupForm;
+
+
+
+

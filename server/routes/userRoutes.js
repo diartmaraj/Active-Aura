@@ -1,29 +1,33 @@
-// routes/userRoutes.js
-
-const express = require('express');
-const multer = require('multer');
-const { protect } = require('../middleware/auth');
-const { updateProfile } = require('../controllers/userController');
+import express from 'express';
+import {
+  getUserProfiles,
+  getUserProfileById,
+  updateUserProfile,
+  deleteUserProfile,
+} from '../controllers/user.controller.js';
+import  { uploadSingle } from '../middleware/upload.js';
+import { body } from 'express-validator';
 
 const router = express.Router();
 
-// Set up multer for file upload
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/userProfiles');
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
+const setUserProfileUploadType = (req, res, next) => {
+  req.uploadType = 'userProfile';
+  next();
+};
 
-const upload = multer({ storage });
+router.get('/userProfiles', getUserProfiles);
+router.get('/userProfiles/:id', getUserProfileById);
+router.put(
+  '/userProfiles/:id',
+  setUserProfileUploadType,
+  uploadSingle,
+  [
+    body('firstName').optional().notEmpty().withMessage('First name is required'),
+    body('lastName').optional().notEmpty().withMessage('Last name is required'),
+    body('email').optional().isEmail().withMessage('Valid email is required'),
+  ],
+  updateUserProfile
+);
+router.delete('/userProfiles/:id', deleteUserProfile);
 
-// Update user profile
-router.post('/profile/update', protect, upload.single('profileImage'), (req, res, next) => {
-    console.log('Request received:', req.body);
-    console.log('File received:', req.file);
-    next();
-  }, updateProfile);
-
-module.exports = router;
+export default router;

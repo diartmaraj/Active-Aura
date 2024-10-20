@@ -9,31 +9,36 @@ import Button1 from "./buttons/Button1";
 import { useNavigate } from "react-router-dom";
 import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, initializeAuthState  } from "../../store/features/auth/authSlice";
+import { logout, checkAuth } from "../../store/features/auth/authSlice";
 import ProfileDropdown from "./profile/ProfileDropdown";
 
-
-const baseURL = "http://localhost:3001";
+const baseURL = "http://localhost:5000";
 
 function HomeHeader() {
   const [isSideBarOpen, setisSideBarOpen] = useState(false);
   const [ProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
-  
+  const dispatch = useDispatch();
+  const { isAuthenticated, user, isCheckingAuth } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
   const toggleDropdown = () => {
     setProfileDropdownOpen(!ProfileDropdownOpen);
   };
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
 
   const toggleSideBar = () => {
     setisSideBarOpen(!isSideBarOpen);
   };
 
-
   const handleLogout = () => {
     dispatch(logout());
   };
 
+  if (isCheckingAuth) {
+    return <div>Loading...</div>; // Show a loading state while checking authentication
+  }
 
   return (
     <header className="padding-x py-4 absolute z-10 w-full ">
@@ -59,8 +64,8 @@ function HomeHeader() {
           ))}
         </ul>
         <div className="flex justify-between gap-8 items-center max-lg:hidden ">
-        <IoCartOutline className="size-6"/>
-        {isAuthenticated ? (
+          <IoCartOutline className="size-6" />
+          {isAuthenticated ? (
             <div className="relative flex items-center gap-4">
               <img
                 src={`${baseURL}${user.photo}`} // Assuming user.photo contains the URL of the user's photo
@@ -68,7 +73,7 @@ function HomeHeader() {
                 className="w-10 h-10 2xl:w-14 2xl:h-14 rounded-full object-cover cursor-pointer"
                 onClick={toggleDropdown}
               />
-              <ProfileDropdown isOpen={ProfileDropdownOpen}  user={user} onLogout={handleLogout}/>
+              <ProfileDropdown isOpen={ProfileDropdownOpen} user={user} onLogout={handleLogout} />
             </div>
           ) : (
             <Button1 label="Log in / Sign up" path="/login" extraStyle="h-12" />

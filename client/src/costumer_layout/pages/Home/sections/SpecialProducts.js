@@ -9,28 +9,21 @@ import { useSelector } from "react-redux";
 
 const SpecialProducts = ({selectedType}) => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 640);
-  const products = useSelector(state => state.products.items);
+  const products = useSelector((state) => state.products.items);
+  const productStatus = useSelector((state) => state.products.status);
+  const productError = useSelector((state) => state.products.error);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 640);
-    };
+  if (productStatus === 'loading') {
+    return <div>Loading products...</div>;
+  }
 
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  if (productStatus === 'failed') {
+    return <div>Error: {productError}</div>;
+  }
 
-
-
-  const selectedCategory = productType.find(type => type.name === selectedType);
-  const subcategories = selectedCategory?.subcategories?.map(sub => sub.name) || [];
-
-  // Filter products by category or subcategory
-  const filteredProducts = products.filter(
-    product => product.category === selectedType || subcategories.includes(product.category) || selectedType === "All"
-  );
+  if (!products || products.length === 0) {
+    return <div>No products available for this category</div>;
+  }
 
   return (
     <section className="flex flex-col justify-center items-center padding-x">
@@ -51,13 +44,13 @@ const SpecialProducts = ({selectedType}) => {
       infiniteLoop 
       autoPlay 
       interval={5000} >
-       {filteredProducts.map((product, index) => (
+       {products.map((product, index) => (
            <div key={index} className="w-full h-full p-2">
              <ProductCard2
                index={index}
-               img={product.img}
+               img={product.images || []}
                productName={product.name}
-               category={product.category}
+               category={product.category.name}
                oldPrice={product.oldPrice}
                price={product.price}
              />
@@ -66,13 +59,13 @@ const SpecialProducts = ({selectedType}) => {
      </Carousel>
       ) : (
         <div className="grid grid-cols-2 max-sm:grid-cols-1 tablet:grid-cols-3 2xl:grid-cols-4 gap-6">
-          {filteredProducts.map((product, index) => (
+          {products.map((product, index) => (
             <div key={index} className="w-full h-full">
               <ProductCard2
                 index={index}
-                img={product.img}
+                img={product.images || []}
                 productName={product.name}
-                category={product.category}
+                category={product.category.name}
                 oldPrice={product.oldPrice}
                 price={product.price}
               />

@@ -2,10 +2,16 @@ import React from 'react'
 import AddToCartButton from '../buttons/AddToCartButton'
 
 const ListCard = ({ img, productName, category, price }) => {
+  const baseURL = 'http://localhost:5000'; // Change this to your server's base URL if needed
+  
+  // Handle the case where no image is available
+  const imageUrl = img.length > 0 
+    ? `${baseURL}/${img[0]}` // Use the first image in the array
+    : `${baseURL}/default-image.jpg`;
   return (
     <div className="flex flex-col md:flex-row bg-white shadow-md rounded-lg w-full   p-4 mb-4">
     <img
-      src={`http://localhost:5000${img}`}
+      src={imageUrl}
       alt={productName}
       className="w-full md:w-40 h-40 object-contain rounded-md mb-4 md:mb-0 md:mr-4"
     />

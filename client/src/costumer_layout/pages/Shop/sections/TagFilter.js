@@ -1,24 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import { getSubcategoryTags } from '../../../../constants';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleCategory, removeCategory, resetFilters, applyCategory} from '../../../../store/features/filter/filterSlice';
-
+import { fetchCategories } from '../../../../store/features/categories/categorySlice';
+import { fetchSubCategories } from '../../../../store/features/subcategories/subCategoriesSlice';
+import { fetchProducts, setFilter } from '../../../../store/features/products/productsSlice';
 
 const TagFilter = ({ limit, selectedTag}) => {
   const dispatch = useDispatch();
-  const selectedTags = useSelector((state) => state.filters.categories);
+  const selectedCategoryIds = useSelector((state) => state.products.filters.category);
+  const selectedSubcategoryIds = useSelector((state) => state.products.filters.subcategory);
 
-  const availableTags = getSubcategoryTags();
+  const { items: categories = [], status: categoriesStatus } = useSelector((state) => state.categories || {});
+  const { items: subcategories = [], status: subCategoriesStatus } = useSelector((state) => state.subCategories || {});
+  const filters = useSelector((state) => state.products.filters);
 
-  const handleTagClick = (tag) => {
-    dispatch(toggleCategory(tag)); // Handle category toggle
-    dispatch(applyCategory(tag)); // Set selected tag in Redux
-};
 
+  const handleTagClick = (filterType, tagId) => {
+    console.log(tagId);
+    console.log(filterType);
+    const isSelected = selectedTags.some((tag) => tag.id === tagId);
+    dispatch(setFilter({ filterType, value: tagId, checked: !isSelected }));
+  };
+
+  const handleTag = (filterType, tagId) => handleTagClick(filterType,tagId);
+
+  useEffect(() => {
+    // Only fetch products if there's at least one filter set
+    if (filters.category.length > 0 || filters.subcategory.length > 0) {
+        dispatch(fetchProducts(filters));
+    }
+}, [filters, dispatch]);
+
+useEffect(() => {
+  if (categoriesStatus === 'idle') {
+    dispatch(fetchCategories());
+  }
+  if (subCategoriesStatus === 'idle') {
+    dispatch(fetchSubCategories());
+  }
+},  [categoriesStatus, subCategoriesStatus, dispatch]);
 
   const handleRemoveTag = (tag) => {
-    dispatch(removeCategory(tag));
+      
   };
+  const availableTags = [
+    ...categories.map((category) => ({ id: category._id, name: category.name, type: 'category' })),
+    ...subcategories.map((subcategory) => ({ id: subcategory._id, name: subcategory.name, type: 'subcategory' }))
+  ];
+
+  const selectedTags = [
+    ...categories.filter(cat => selectedCategoryIds.includes(cat._id)).map(cat => cat.name),
+    ...subcategories.filter(subcat => selectedSubcategoryIds.includes(subcat._id)).map(subcat => subcat.name)
+];
+ 
+
+
 
   const displaySelectedTags = selectedTags.length === 1 
     ? `${selectedTags[0]}`
@@ -27,7 +62,7 @@ const TagFilter = ({ limit, selectedTag}) => {
     : 'Shop'
   
   return (
-    <div className="flex flex-col flex-wrap gap-4 justify-center mt-4 padding-x">
+    <div className="flex flex-col flex-wrap gap-4 justify-start items-start  mt-4 padding-x">
         <div>
             <h1 className='text-lg font-bold text-black'> {displaySelectedTags}</h1>
         </div>
@@ -47,10 +82,10 @@ const TagFilter = ({ limit, selectedTag}) => {
                 {availableTags.slice(0, limit).map((tag, index) => (
                     <button
                         key={index}
-                        onClick={() => handleTagClick(tag)}
+                        onClick={() => handleTag(tag.type, tag.id)}
                         className="px-4 py-2 border font-semibold rounded-lg hover:bg-secondary_1 hover:text-white"
                     >
-                        {tag}
+                        {tag.name}
                     </button>
                 ))}
             </div>

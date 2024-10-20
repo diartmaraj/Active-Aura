@@ -1,16 +1,27 @@
 import React from 'react';
 
-const CustomDropdown = ({ value, options, onChange, optionLabel, placeholder, className, panelClassName, itemTemplate, valueTemplate }) => {
+const CostumDropdown = ({
+    value,
+    options = [],
+    onChange,
+    optionLabel,
+    placeholder,
+    className,
+}) => {
     return (
         <div className={`relative ${className}`}>
             <select
-                value={value}
-                onChange={(e) => onChange({ value: e.target.value })}
+                value={value} // Ensure this matches the selected value
+                onChange={(e) => {
+                    const selectedValue = e.target.value;
+                    const selectedOption = options.find(option => option.value === selectedValue);
+                    onChange(selectedOption); // Pass the entire option object to onChange
+                }}
                 className="w-full p-2 bg-white text-gray-700 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
-                <option value="" disabled>{placeholder}</option>
+                <option value="" disabled hidden>{placeholder}</option>
                 {options.map((option, index) => (
-                    <option key={index} value={option[optionLabel]}>
+                    <option key={index} value={option.value}>
                         {option[optionLabel]}
                     </option>
                 ))}
@@ -19,4 +30,4 @@ const CustomDropdown = ({ value, options, onChange, optionLabel, placeholder, cl
     );
 };
 
-export default CustomDropdown;
+export default CostumDropdown;

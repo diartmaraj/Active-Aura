@@ -11,7 +11,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight";
 
 const Login = () => {
   return (
-    <section className="flex flex-col lg:flex-row justify-center items-center lg:justify-start lg:items-start h-screen ">
+    <section className="flex flex-col lg:flex-row justify-center items-center lg:justify-start lg:items-start h-screen w-full">
       <div className="lg:bg-white max-md:w-3/4 pb-10 z-10 lg:h-full flex flex-col items-center justify-center w-1/2 max-lg:rounded-lg shadow-lg border bg-black bg-opacity-30">
         <Link
           to="/"

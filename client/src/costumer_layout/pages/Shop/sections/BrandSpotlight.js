@@ -1,7 +1,5 @@
 import React from 'react'
-import { MdKeyboardArrowRight } from "react-icons/md";
 import { IoFilter } from "react-icons/io5";
-import { mostPopularProducts } from '../../../../constants';
 import ProductCard1 from "../../../components/cards/ProductCard1";
 import { Carousel } from 'react-responsive-carousel';
 import { useState, useEffect } from 'react';
@@ -10,9 +8,8 @@ import {Dropdown} from "primereact/dropdown";
 import { FaListUl } from "react-icons/fa";
 import { IoGridOutline } from "react-icons/io5";
 import ListCard from '../../../components/cards/ListCard';
-import Filter from '../../../components/Filter';
 
-const BrandSpotlight = ({isFilterOpen,toggleFilters, filteredProducts}) => {
+const BrandSpotlight = ({isFilterOpen,toggleFilters, products}) => {
     const [screenSizeTablet, setscreenSizeTablet] = useState(window.innerWidth >= 904);
     const [layout, setLayout] = useState('carousel');
 
@@ -40,12 +37,12 @@ const renderProducts = () => {
         case 'list':
             return (
                 <div className='w-full'>
-                    {filteredProducts.map((product, index) => (
+                    {products.map((product, index) => (
                         <ListCard 
                             key={index}
-                            img={product.img}
+                            img={product.images || []}
                             productName={product.name}
-                            category={product.category}
+                            category={product.category.name}
                             price={product.price}
                         />
                     ))}
@@ -54,12 +51,12 @@ const renderProducts = () => {
         case 'grid':
             return (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
-                    {filteredProducts.map((product, index) => (
+                    {products.map((product, index) => (
                         <ProductCard1 
                             key={index}
-                            img={product.img}
+                            img={product.images || []}
                             productName={product.name}
-                            category={product.category}
+                            category={product.category.name}
                             price={product.price}
                         />
                     ))}
@@ -76,12 +73,12 @@ const renderProducts = () => {
                         centerSlidePercentage={screenSizeTablet ? 33.33 : 100}
                         className={`h-full`}
                     >
-                        {filteredProducts.map((product, index) => (
+                        {products.map((product, index) => (
                             <div key={index} className={`w-full h-full ${screenSizeTablet ? "px-5" : ""}`}>
                                 <ProductCard1 
-                                    img={product.img}
+                                    img={product.images || []}
                                     productName={product.name}
-                                    category={product.category}
+                                    category={product.category.name}
                                     price={product.price}
                                     imgHeight="h-36"
                                 />

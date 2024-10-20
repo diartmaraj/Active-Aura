@@ -1,14 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
-import filterReducer from './features/filter/filterSlice';
 import productsSlice from './features/products/productsSlice';
 import authReducer from './features/auth/authSlice';
+import categoryReducer from './features/categories/categorySlice';
+import subCategoryReducer from './features/subcategories/subCategoriesSlice';
+import brandsReducer from './features/brands/brandsSlice';
 
 
 const store = configureStore({
     reducer:{
-        filters: filterReducer,
         products: productsSlice,
-        auth: authReducer
+        auth: authReducer,
+        categories: categoryReducer,
+        subCategories: subCategoryReducer,
+        brands: brandsReducer
 
     }
     // Optional: you can add middleware or other store enhancers here
