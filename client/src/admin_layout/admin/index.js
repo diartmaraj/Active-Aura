@@ -21,9 +21,8 @@ import { BrowserRouter, Route,Routes, Switch, Navigate  } from "react-router-dom
 
 // core components
 import Admin from "./layouts/Admin.js";
-import RTL from "./layouts/RTL.js";
 
-import "./assets/css/material-dashboard-react.css?v=1.10.0";
+
 
 
 const AdminLayout = () => {
@@ -31,7 +30,6 @@ const AdminLayout = () => {
    <div className=''>
    <Routes>
       <Route path="/*" element={<Admin />} />
-      <Route path="/rtl" element={RTL} />
     </Routes>
    </div>
 
