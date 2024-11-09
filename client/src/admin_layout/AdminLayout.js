@@ -5,7 +5,7 @@ import Products from './pages/products/Products';
 import SideBar from './components/SideBar';
 import NavBar from './components/NavBar';
 import Management from './pages/management/Management';
-import Dashboard from './pages/dashboard/src/views/Dashboard/Dashboard';
+import Dashboard from './admin/views/Dashboard/Dashboard';
 
 function AdminLayout() {
   return  (

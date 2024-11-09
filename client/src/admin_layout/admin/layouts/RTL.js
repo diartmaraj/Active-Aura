@@ -11,9 +11,9 @@ import Footer from "../components/Footer/Footer.js";
 import Sidebar from "../components/Sidebar/Sidebar.js";
 import FixedPlugin from "../components/FixedPlugin/FixedPlugin.js";
 
-import routes from "../routes";
+import routes from "../routes.js";
 
-import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle.js";
+import styles from "../assets/jss/material-dashboard-react/layouts/rtlStyle.js";
 
 import bgImage from "../assets/img/sidebar-2.jpg";
 import logo from "../assets/img/reactlogo.png";
@@ -23,20 +23,24 @@ let ps;
 const switchRoutes = (
   <Routes>
     {routes.map((prop, key) => {
-      return (
-        <Route
-          path={prop.path}
-          element={prop.component}
-          key={key}
-        />
-      );
+      if (prop.layout === "/rtl") {
+        return (
+          <Route
+            path={prop.layout + prop.path}
+            component={prop.component}
+            key={key}
+          />
+        );
+      }
+      return null;
     })}
+    <Route path="/rtl" element={<Navigate to="/rtl/rtl-page" replace />} />
   </Routes>
 );
 
 const useStyles = makeStyles(styles);
 
-export default function Admin({ ...rest }) {
+export default function RTL({ ...rest }) {
   // styles
   const classes = useStyles();
   // ref to help us initialize PerfectScrollbar on windows devices
@@ -92,18 +96,20 @@ export default function Admin({ ...rest }) {
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
-        logoText={"Creative Tim"}
+        logoText={"الإبداعية تيم"}
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
         color={color}
+        rtlActive
         {...rest}
       />
       <div className={classes.mainPanel} ref={mainPanel}>
         <Navbar
           routes={routes}
           handleDrawerToggle={handleDrawerToggle}
+          rtlActive
           {...rest}
         />
         {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
@@ -122,6 +128,7 @@ export default function Admin({ ...rest }) {
           bgImage={image}
           handleFixedClick={handleFixedClick}
           fixedClasses={fixedClasses}
+          rtlActive
         />
       </div>
     </div>
