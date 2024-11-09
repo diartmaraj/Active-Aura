@@ -1,11 +1,11 @@
-import Dashboard from './pages/dashboard/Dashboard';
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AddProducts from './pages/products/AddProducts';
 import Products from './pages/products/Products';
 import SideBar from './components/SideBar';
 import NavBar from './components/NavBar';
 import Management from './pages/management/Management';
-
+import Dashboard from './pages/dashboard/src/views/Dashboard/Dashboard';
 
 function AdminLayout() {
   return  (
@@ -25,8 +25,7 @@ function AdminLayout() {
       <div className=''>
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/products" element={<Products/>}/> 
-          <Route path="/products/add-products" element={<AddProducts/>} />
+          <Route path="/products/*" element={<Products/>}/> 
           <Route path="/categories" element={<Management/>}/>
         </Routes>
     </div>

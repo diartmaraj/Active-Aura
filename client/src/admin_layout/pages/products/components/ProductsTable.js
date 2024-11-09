@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, editProduct, deleteProduct } from '../../../../store/features/products/productsSlice';
 import ProductRow from './ProductRow';
+import { useNavigate } from 'react-router-dom';
 
 const ProductsTable = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.items);
   const productStatus = useSelector((state) => state.products.status);
@@ -16,7 +18,7 @@ const ProductsTable = () => {
   }, [productStatus, dispatch]);
 
   const handleEdit = (product) => {
-    dispatch(editProduct(product));
+    navigate('')
   };
 
   const handleDelete = (productId) => {

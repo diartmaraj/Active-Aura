@@ -30,7 +30,7 @@ const SignupForm = () => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center w-full p-6  border-gray-200 z-10">
       <h1 className='text-2xl font-semibold mb-6 text-white lg:text-black'>Create an account</h1>
-      <div className='flex flex-col gap-2 justify-center items-center mb-6'>
+      <div className='flex flex-col gap-2 justify-center items-center '>
       <div className='flex justify-center items-center gap-2'>
         <InputText
           type="text"
@@ -78,7 +78,7 @@ const SignupForm = () => {
                onChange={handleChange}
                className="block pl-2.5 pr-20 py-3 mb-2 w-full text-sm max-sm:text-[12px] text-white lg:text-black bg-none placeholder:text-gray-300 bg-transparent rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:border-secondary_2 peer z-[1111]"
              />
-             <PasswordStrengthMeter password={form.password}/>
+             <PasswordStrengthMeter password={form.password} />
         {error && <p className="text-red-500 text-sm">{error}</p>}
         <Button1 type="submit" label={isLoading ? 'Signing up...' : 'Sign Up'} extraStyle="w-full h-12" disabled={isLoading} />
         <Link to="/login">

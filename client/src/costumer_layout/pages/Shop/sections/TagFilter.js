@@ -39,9 +39,14 @@ useEffect(() => {
   }
 },  [categoriesStatus, subCategoriesStatus, dispatch]);
 
-  const handleRemoveTag = (tag) => {
-      
-  };
+const handleRemoveTag = (tag) => {
+  const filterType = categories.some((cat) => cat.name === tag) ? 'category' : 'subcategory';
+  const tagId = filterType === 'category'
+    ? categories.find((cat) => cat.name === tag)._id
+    : subcategories.find((subcat) => subcat.name === tag)._id;
+
+  dispatch(setFilter({ filterType, value: tagId, checked: false }));
+};
   const availableTags = [
     ...categories.map((category) => ({ id: category._id, name: category.name, type: 'category' })),
     ...subcategories.map((subcategory) => ({ id: subcategory._id, name: subcategory.name, type: 'subcategory' }))

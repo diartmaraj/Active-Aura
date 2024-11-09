@@ -48,6 +48,7 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async (_, { rejectWi
   try {
     const response = await axios.get(`${API_URL}/check-auth`);
     return response.data;
+   
   } catch (error) {
     return rejectWithValue(null);
   }

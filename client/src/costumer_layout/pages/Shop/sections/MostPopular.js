@@ -8,6 +8,8 @@ import {Dropdown} from "primereact/dropdown";
 import { FaListUl } from "react-icons/fa";
 import { IoGridOutline } from "react-icons/io5";
 import ListCard from '../../../components/cards/ListCard';
+import '@splidejs/react-splide/css';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
 
 
 const MostPopular = ({ isFiltersOpen, toggleFilters ,products}) => {
@@ -52,7 +54,7 @@ const renderProducts = () => {
             );
         case 'grid':
             return (
-                <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
+                <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-3 gap-4 w-full">
                     {products.map((product, index) => (
                         <ProductCard1 
                             key={index}
@@ -67,27 +69,36 @@ const renderProducts = () => {
         case 'carousel':
         default:
             return (
-                <div className='w-full h-[380px] costum-carousel padding-x '>
-                    <Carousel 
-                        showThumbs={false} 
-                        showStatus={false} 
-                        centerMode={screenSizeTablet}
-                        centerSlidePercentage={screenSizeTablet ? 33.33 : 100}
-                        className={`h-full `}
-                    >
-                        {products.map((product, index) => (
-                            <div key={index} className={`w-full h-full ${screenSizeTablet ? "px-5" : ""}`}>
-                                <ProductCard1 
-                                    img={product.images || []}
-                                    productName={product.name}
-                                    category={product.category.name}
-                                    price={product.price}
-                                    imgHeight="h-36"
-                                />
-                            </div>
-                        ))}
-                    </Carousel>
-                </div>
+                <div className="w-full  costum-carousel ">
+      <Splide
+        options={{
+          type: 'loop',
+          perPage: screenSizeTablet ? 3 : 1,
+          perMove: 1,
+          gap: screenSizeTablet ? '1rem' : '0',
+          pagination: false,
+          arrows: true,
+          breakpoints: {
+            768: {
+              perPage: 1,
+            },
+          },
+        }}
+        className="h-full"
+      >
+        {products.map((product, index) => (
+          <SplideSlide key={index} className="w-full h-full">
+            <ProductCard1 
+              img={product.images || []}
+              productName={product.name}
+              category={product.category.name}
+              price={product.price}
+              imgHeight="h-36"
+            />
+          </SplideSlide>
+        ))}
+      </Splide>
+    </div>
             );
     }
 };

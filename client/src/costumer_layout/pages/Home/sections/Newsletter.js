@@ -8,13 +8,13 @@ import MasterMindGold from "../../../../assets/images/MasterMindGold.png";
 
 const Newsletter = () => {
   return (
-    <section className="relative flex flex-col justify-center items-center background-gradient2 pb-64 tablet:pb-32 overflow-hidden">
+    <section className="relative flex flex-col padding-x justify-center items-center background-gradient2 pb-64 tablet:pb-32 overflow-hidden">
       <div className="flex flex-col justify-center items-center pb-6">
-        <h1 className="text-3xl font-bold">
-          <span className="text-primary">Join in and get </span>
+        <h1 className="text-3xl max-sm:text-xl max-sm:pb-4 font-bold">
+          <span className="text-primary ">Join in and get </span>
           <span className="text-secondary_2">25% OFF!</span>
         </h1>
-        <p className="text-sm text-primary">
+        <p className="text-sm text-center text-primary ">
           Subscribe to our newsletter and get 25% OFF discount code
         </p>
       </div>

@@ -1,12 +1,13 @@
 import React from 'react';
 import ProductsTable from './components/ProductsTable';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Routes, Route} from 'react-router-dom';
+import AddProduct from './AddProducts';
 
 
 const Products = () => {
     const navigate = useNavigate();
     const handleAddProductClick = () => {
-        navigate('/admin/products/add-products');
+        navigate('add-products');
     }
   return (
     <div className='padding-x py-4'>
@@ -41,6 +42,9 @@ const Products = () => {
           </div>
             <ProductsTable />
         </div>
+        <Routes>
+          <Route path="/add-products" element={<AddProduct/>} />
+        </Routes>
     </div>
   )
 }

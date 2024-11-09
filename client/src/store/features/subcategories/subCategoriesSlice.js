@@ -26,8 +26,14 @@ export const updateSubCategory = createAsyncThunk('subCategories/updateSubCatego
 });
 
 export const deleteSubCategory = createAsyncThunk('subCategories/deleteSubCategory', async (subCategoryId) => {
-  await axios.delete(`http://localhost:5000/api/subCategories/delete/${subCategoryId}`);
-  return subCategoryId;
+  try {
+    await axios.delete(`http://localhost:5000/api/sub-category/delete/${subCategoryId}`);
+    return subCategoryId;
+  } catch (error) {
+    console.error('Error deleting subcategory:', error);
+    throw error;
+  }
+  
 });
 
 const subCategorySlice = createSlice({

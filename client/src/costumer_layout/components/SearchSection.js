@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { InputText } from "primereact/inputtext";
 import {CiFilter} from 'react-icons/ci';
 import DiartiProfile from "../../assets/images/DiartiProfile.jpg"
@@ -8,12 +8,26 @@ import Button1 from './buttons/Button1';
 import ProfileDropdown from './profile/ProfileDropdown';
 import { BiCategory } from "react-icons/bi";
 import FilterCategory from './FilterCategory';
+import { useDispatch , useSelector} from 'react-redux';
+import { checkAuth } from '../../store/features/auth/authSlice';
+import { logout } from '../../store/features/auth/authSlice';
+
 
 const SearchSection = () => {
   const [ProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { isAuthenticated, user, isCheckingAuth } = useSelector((state) => state.auth);
+  const baseURL = "http://localhost:5000";
   
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
   const toggleDropdown = () => {
     setProfileDropdownOpen(!ProfileDropdownOpen);
+  };
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -33,12 +47,17 @@ const SearchSection = () => {
       
     </div>
     <div  className="absolute bottom-0 right-0">
-    <img
-          src={DiartiProfile}
-          alt="Profile"
-          className="w-10 h-10 2xl:w-14 2xl:h-14 rounded-full object-cover cursor-pointer"
-          onClick={toggleDropdown}
-        />
+    {isAuthenticated ? (
+            <div className="relative flex items-center gap-4">
+              <img
+                src={`${baseURL}${user.photo}`} // Assuming user.photo contains the URL of the user's photo
+                alt="Profile"
+                className="w-10 h-10 2xl:w-14 2xl:h-14 rounded-full object-cover cursor-pointer"
+                onClick={toggleDropdown}
+              />
+              <ProfileDropdown isOpen={ProfileDropdownOpen} user={user} onLogout={handleLogout} />
+            </div>
+    ) : ''}
     </div>
 <ProfileDropdown isOpen={ProfileDropdownOpen}  user={{profilePicture: DiartiProfile, name: "Diart Maraj", email: "diartmarajj@outlook.com"}}/>
 

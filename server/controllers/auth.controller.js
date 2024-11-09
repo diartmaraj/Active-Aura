@@ -101,10 +101,14 @@ export const login = async (req, res) => {
         return res.status(400).json({success: false, message: "Invalid credentials"});
 
     }
+    if (!user.isVerified) {
+        return res.status(400).json({success: false, message: "User not verified"});
+    }
 
+    
     generateTokenAndSetCookie(res, user._id);
 
-    user.lastLogin = new Date();
+    user.lastlogin = new Date();
     await user.save();
 
     res.status(200).json({

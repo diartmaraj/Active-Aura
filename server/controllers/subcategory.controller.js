@@ -1,5 +1,6 @@
 import SubCategory from '../models/subCategory.model.js';
 import Category from '../models/category.model.js';
+import mongoose from 'mongoose';
 
 // Create a new subcategory
 export const createSubCategory = async (req, res) => {
@@ -45,3 +46,18 @@ export const getSubCategoryById = async (req, res) => {
     res.status(500).json({ message: 'Error fetching subcategory', error });
   }
 };
+
+export const deleteSubCategory = async (req, res) => {
+  debugger
+  try {
+    const { id } = req.params;
+    const subCategory = await SubCategory.findById(id);
+    if(!subCategory){
+      return res.status(404).json({ message: 'Subcategory not found' });
+    }
+    await SubCategory.deleteOne({ _id: id });
+    res.status(200).json({ message: 'Subcategory deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}

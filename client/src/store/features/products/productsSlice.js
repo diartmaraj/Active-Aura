@@ -25,7 +25,6 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async (f
 
 
 export const fetchProductsByCategory = createAsyncThunk('products/fetchProductsByCategory', async (categoryId) => {
-  console.log(categoryId);
   try {
     const response = await axios.get(`http://localhost:5000/api/products/get/category/${categoryId}`);
     return response.data;
@@ -33,6 +32,15 @@ export const fetchProductsByCategory = createAsyncThunk('products/fetchProductsB
     throw error.response.data.message || error.message;
   }
 });
+
+export const fetchProductsSpecialOffers = createAsyncThunk('products/fetchProductsSpecialOffers', async () => {
+  try {
+    const response = await axios.get('http://localhost:5000/api/products/get/special-offers');
+    return response.data;
+  } catch (error) {
+    throw error.response.data.message || error.message;
+  }
+})
 
 
 export const addProduct = createAsyncThunk('products/addProduct', async (product) => {
@@ -66,6 +74,7 @@ export const deleteProduct = createAsyncThunk('products/deleteProduct', async (p
 });
 const  initialState = {
   items: [],
+  specialOffers: [],
   filters: {
     category: [],
     subcategory: [] ,
@@ -79,6 +88,7 @@ const  initialState = {
     availability: []
   },
   status: 'idle',
+  specialOffersStatus: 'idle',  
     error: null,
 };
 
@@ -132,7 +142,6 @@ const productsSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchProductsByCategory.fulfilled, (state, action) => {
-        console.log('Fetched Products:', action.payload); // Log the fetched products
         state.status = 'succeeded';
         state.items = action.payload;
       })
@@ -140,6 +149,17 @@ const productsSlice = createSlice({
       .addCase(fetchProductsByCategory.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload; 
+      })
+      .addCase(fetchProductsSpecialOffers.pending, (state) => {
+        state.specialOffersStatus = 'loading';
+      })
+      .addCase(fetchProductsSpecialOffers.fulfilled, (state, action) => {
+        state.specialOffersStatus = 'succeeded';
+        state.specialOffers = action.payload;
+      })
+      .addCase(fetchProductsSpecialOffers.rejected, (state, action) => {
+        state.specialOffersStatus = 'failed';
+        state.specialOffersError = action.payload;
       })
       .addCase(editProduct.fulfilled, (state, action) => {
         const index = state.items.findIndex((product) => product.id === action.payload.id);

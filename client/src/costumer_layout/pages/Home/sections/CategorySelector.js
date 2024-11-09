@@ -2,25 +2,28 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategories } from '../../../../store/features/categories/categorySlice';
 import { fetchProducts, fetchProductsByCategory } from '../../../../store/features/products/productsSlice';
+import { Circles } from 'react-loader-spinner';
 
 const CategorySelector = ({ setSelectedCategoryId, selectedCategoryId }) => {
   const dispatch = useDispatch();
   const {items: categories = [], status: categoriesStatus, error: categoriesError } = useSelector((state) => state.categories);
-
   useEffect(() => {
     if (categoriesStatus === 'idle') {
       dispatch(fetchCategories());
     }
   }, [dispatch, categoriesStatus]);
 
+  useEffect(() => {
+    if (selectedCategoryId === 'all') {
+      dispatch(fetchProducts()); 
+    }
+  }, [selectedCategoryId])
+
   const handleCategorySelect = (categoryId) => {
-    console.log("Selected Category ID:", categoryId); // Log the selected category ID
     setSelectedCategoryId(categoryId);
     if (categoryId === 'all') {
-      // Fetch all products if "All" is selected
       dispatch(fetchProducts()); 
     } else {
-      // Fetch products by specific category
       dispatch(fetchProductsByCategory(categoryId));
     }
 
@@ -28,9 +31,20 @@ const CategorySelector = ({ setSelectedCategoryId, selectedCategoryId }) => {
   
 
   if (categoriesStatus === 'loading') {
-    return <div>Loading categories...</div>;
+    return (
+      <div className="flex justify-center items-center w-full">
+        <Circles 
+          height="80" 
+          width="80" 
+          color="#4fa94d" 
+          ariaLabel="circles-loading" 
+          wrapperStyle={{}} 
+          wrapperClass="" 
+          visible={true} 
+        />
+      </div>
+    );
   }
-
   if (categoriesStatus === 'failed') {
     return <div>Error: {categoriesError}</div>;
   }

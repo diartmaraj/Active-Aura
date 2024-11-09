@@ -16,7 +16,7 @@ const Hero = () => {
         <h1
           className="max-sm:text-[56px] max-sm:leading-[62px] text-[76px] leading-[82px] xl:text-[92px] xl:leading-[98px]  font-bold font-palanquin 
         bg-gradient-to-b from-secondary_1  to-primary 
-        text-transparent bg-clip-text "
+        text-transparent bg-clip-text text-nowrap"
         >
           Active Aura
         </h1>
@@ -35,8 +35,9 @@ const Hero = () => {
             icon={faArrowRight}
             color="bg-secondary_1"
             extraStyle="h-12 max-[350px] mb-2"
+            path="/shop"
           />
-          <Button1 label="Log in / Sign up" path="/login"extraStyle="h-12" />
+          <Button1 label="Log in / Sign up" path="/login" extraStyle="h-12" />
         </div>
         <div className="flex tablet:justify-start tablet:items-start sm:justify-center sm:items-center flex-wrap w-full  gap-20 max-sm:gap-10">
           {stats.map((stat) => (

@@ -48,7 +48,19 @@ const getProductsByCategory = async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   };
-
+const getSpecialOffersProducts = async (req, res) => {
+    try {
+      
+        const products = await Product.find({ discount: { $gt: 0 } })
+          .sort({ discount: -1 }) 
+          .limit(5); 
+    
+       
+        res.status(200).json(products);
+      } catch (error) {
+        res.status(500).json({ message: 'An error occurred while fetching special offers products.', error });
+      }
+}
 
  // Sample addProduct function
  const addProduct = async (req, res) => {
@@ -95,19 +107,27 @@ const getProductsByCategory = async (req, res) => {
 };
 const editProduct = async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id);
+        const updates = req.body.product;
+        const { id } = req.params;
+        const product = await Product.findById(id);
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
 
-        Object.keys(req.body.product).forEach((key) => {
-            product[key] = req.body.product[key];
+        Object.keys(updates).forEach((key) => {
+            product[key] = updates[key];
         });
 
         const updatedProduct = await product.save();
         res.status(200).json(updatedProduct);
     } catch (err) {
-        res.status(400).json({ message: err.message });
+        if (err.name === 'ValidationError') {
+            return res.status(400).json({ message: err.message });
+          } else if (err.name === 'CastError') {
+            return res.status(400).json({ message: 'Invalid product ID' });
+          } else {
+            return res.status(500).json({ message: 'Server error' });
+          }
     }
 }
 
@@ -124,5 +144,5 @@ const deleteProduct = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 }
-export { getProducts,getProductsByCategory, addProduct, editProduct, deleteProduct };
+export { getProducts,getProductsByCategory, addProduct, editProduct, deleteProduct , getSpecialOffersProducts};
 

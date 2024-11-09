@@ -73,6 +73,7 @@ const Management = () => {
   };
 
   const handleDeleteSubCategory = (subCategoryId) => {
+    console.log("Deleting subcategory ",subCategoryId);
     dispatch(deleteSubCategory(subCategoryId));
   };
 

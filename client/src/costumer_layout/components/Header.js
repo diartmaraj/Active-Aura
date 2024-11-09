@@ -1,20 +1,28 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import Logo from "../../assets/images/logo.png";
 import { Link,useLocation } from "react-router-dom";
 import { navLinks } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faSearch } from "@fortawesome/free-solid-svg-icons";
-import { IoCartOutline } from "react-icons/io5";
+import { IoCartOutline,IoHeartOutline } from "react-icons/io5";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Button1 from "./buttons/Button1";
 import SideBar from "./SideBar";
 import SearchSection from "./SearchSection";
+import { useSelector, useDispatch } from "react-redux";
+import { checkAuth } from "../../store/features/auth/authSlice";
 
 
 const Header = () => {
   const [isSideBarOpen, setisSideBarOpen] = useState(false);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const { isAuthenticated, user, isCheckingAuth } = useSelector((state) => state.auth);
 
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+  
   const toggleSideBar = () => {
     setisSideBarOpen(!isSideBarOpen);
   }
@@ -28,7 +36,7 @@ const Header = () => {
       <ul className="flex-1 flex justify-center items-center gap-5 xl:gap-8  max-lg:hidden">
         {navLinks.map((item) => {
 
-            const isActive = location.pathname === item.href; // Check if the link is active
+            const isActive = location.pathname === item.href;
             return (
               <li key={item.label}>
                 <Link
@@ -43,8 +51,11 @@ const Header = () => {
         );
         })}
       </ul>
-      <div className="flex justify-between gap-8 items-center max-lg:hidden ">
-      <IoCartOutline className="size-6"/>
+      <div className="flex justify-between gap-4 items-center max-lg:hidden ">
+        <div className="flex items-center gap-4">
+            <IoCartOutline className="size-6" />
+            <IoHeartOutline className="size-6"/>
+          </div>
         <Button1 label="Log in / Sign up" path="/login" extraStyle="h-12"></Button1>
       </div>
       <div className="flex justify-center items-center gap-8">

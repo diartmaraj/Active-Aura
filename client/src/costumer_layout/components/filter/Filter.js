@@ -133,8 +133,6 @@ const Filter = ({ isOpen, handleToggleFilter}) => {
         });
     };
     useEffect(() =>{
-        console.log('local filters State', selectedFilters)
-        console.log('current filters state from redux', filtersState)
         dispatch(fetchProducts(filtersState))
     }, [filtersState,selectedFilters, dispatch])
 
@@ -456,7 +454,7 @@ const Filter = ({ isOpen, handleToggleFilter}) => {
         }
         else if(layout === 'tablet'){
             return(
-                <div  className={`flex flex-col w-full rounded-lg shadow-lg pb-10 ${isOpen ? 'w-[350px]' : 'max-xl:w-[50px]'}`}
+                <div  className={`flex flex-col  rounded-lg shadow-lg pb-10 ${isOpen ? 'w-[350px]' : 'w-[50px]'}`}
          >  
                 <div className=' flex flex-col w-full '>
                     <div className={`flex justify-end items-end p-2`}>

@@ -46,7 +46,7 @@ const Home = () => {
               x="-200"
               y="40"
               fill="url(#gradient)"
-              className="w-[3000px] h-[150px] tablet:h-[120px] 2xl:h-[90px] "
+              className="w-[3000px] h-[150px] tablet:h-[120px] 2xl:h-[120px] "
             />
             <text
               fontFamily="Arial"
@@ -76,7 +76,7 @@ const Home = () => {
         />
         <RecentProducts  selectedCategoryId={selectedCategoryId}/>
       </section>
-      <section className="max-md:padding-t padding-l">
+      <section className="max-md:padding-t tablet:padding-l">
         <BestSellers />
       </section>
       <section className="padding-b">

@@ -3,7 +3,7 @@ import Logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import { navLinks } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IoCartOutline } from "react-icons/io5";
+import { IoCartOutline, IoHeartOutline } from "react-icons/io5";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Button1 from "./buttons/Button1";
 import { useNavigate } from "react-router-dom";
@@ -63,8 +63,12 @@ function HomeHeader() {
             </li>
           ))}
         </ul>
-        <div className="flex justify-between gap-8 items-center max-lg:hidden ">
-          <IoCartOutline className="size-6" />
+        <div className="flex justify-between gap-4 items-center max-lg:hidden ">
+          <div className="flex items-center gap-4">
+            <IoCartOutline className="size-6" />
+            <IoHeartOutline className="size-6"/>
+          </div>
+          
           {isAuthenticated ? (
             <div className="relative flex items-center gap-4">
               <img

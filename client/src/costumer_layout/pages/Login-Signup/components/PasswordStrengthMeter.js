@@ -11,7 +11,7 @@ const PasswordCriteria = ({ password }) => {
 	];
 
 	return (
-		<div className='mt-2 space-y-1'>
+		<div className='mt-2 space-y-1 max-lg:hidden'>
 			{criteria.map((item) => (
 				<div key={item.label} className='flex items-center text-xs'>
 					{item.met ? (
