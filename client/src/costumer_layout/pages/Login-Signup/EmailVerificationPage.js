@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {motion} from 'framer-motion'
 import { verifyEmail } from '../../../store/features/auth/authSlice';
 import toast from 'react-hot-toast';
@@ -8,9 +8,11 @@ import toast from 'react-hot-toast';
 const EmailVerificationPage = () => {
 
     const [code, setCode] = useState(["", "", "", "", "", ""]);
+    console.log("Code: ", code);
     const inputRefs = useRef([]);
     const navigate = useNavigate();
     const { isLoading, error } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
 
 
     const handleChange = (index, value) => {
@@ -49,8 +51,8 @@ const EmailVerificationPage = () => {
 		e.preventDefault();
 		const verificationCode = code.join("");
 		try {
-			await verifyEmail(verificationCode);
-			navigate("/");
+			dispatch(verifyEmail(verificationCode));
+			navigate("/login");
 			toast.success("Email verified successfully");
 		} catch (error) {
 			console.log(error);

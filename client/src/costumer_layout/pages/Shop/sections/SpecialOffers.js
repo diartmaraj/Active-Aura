@@ -40,15 +40,15 @@ const SpecialOffers = () => {
       >
         {specialProducts.map((card, index) => (
           <SplideSlide key={index}>
-            <SpecialOffersCard
+            {/* <SpecialOffersCard
               img={card.images || []}
               title={card.name}
               discount={card.discount}
               name={card.name}
               phone={card.phone || "+38349473342"}
-              bgGradient={"bg-gradient-to-r from-purple-400 via-pink-500 to-red-500"} // Example gradient
-              btnTextColor={"text-black"} // Example text color
-            />
+              bgGradient={"bg-gradient-to-r from-purple-400 via-pink-500 to-red-500"} 
+              btnTextColor={"text-black"} 
+            /> */}
           </SplideSlide>
         ))}
       </Splide>

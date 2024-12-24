@@ -22,7 +22,7 @@ const SignupForm = () => {
 
     dispatch(signup(form)).then((action) => {
       if (action.meta.requestStatus === 'fulfilled') {
-        navigate('/login'); // Redirect to login page after successful signup
+        navigate('/verify-email'); // Redirect to login page after successful signup
       }
     });
   };

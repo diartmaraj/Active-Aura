@@ -17,7 +17,7 @@ function CostumerLayout() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/verify-email" element={<EmailVerificationPage />} />
-      <Route path="/send-verifification-email" element={<ResendVerifyEmail />} />
+      <Route path="/send-verification-email" element={<ResendVerifyEmail />} />
       <Route path="/*" element={<ShopRouter/>}/>
       <Route path="/settings/*" element={<AccountSettings/>}/>
     </Routes>

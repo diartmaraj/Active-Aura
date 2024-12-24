@@ -21,6 +21,7 @@ export const signup = createAsyncThunk('auth/signup', async ({ email, password, 
 export const login = createAsyncThunk('auth/login', async ({ email, password }, { rejectWithValue }) => {
   try {
     const response = await axios.post(`${API_URL}/login`, { email, password });
+    console.log("Response: ", response.data);
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || "Error logging in");
@@ -35,7 +36,7 @@ export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValu
   }
 });
 
-export const verifyEmail = createAsyncThunk('auth/verifyEmail', async (code, { rejectWithValue }) => {
+export const verifyEmail = createAsyncThunk('auth/verify-email', async (code, { rejectWithValue }) => {
   try {
     const response = await axios.post(`${API_URL}/verify-email`, { code });
     return response.data;
